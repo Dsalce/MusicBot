@@ -2,6 +2,8 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import Agentes.AgenteUsuario;
+
 
 
 public class main {
@@ -11,7 +13,7 @@ public class main {
 
 	        ApiContextInitializer.init();
 	        //hola
-
+/*
 	        TelegramBotsApi botsApi = new TelegramBotsApi();
 
 	        try {
@@ -19,6 +21,10 @@ public class main {
 	        } catch (TelegramApiException e) {
 	            e.printStackTrace();
 	        }
+	        */
+	        AgenteUsuario agente = new AgenteUsuario();
+	        
+	        
 	    }
 
 

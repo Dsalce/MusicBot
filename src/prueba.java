@@ -30,7 +30,7 @@ public class prueba extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         // TODO
-        return "350608468:AAGODvQiRTkkDlSUZ9evgqHwqmnRfIKaGy8";
+        return "369821662:AAEI_zDBYEAqs5f01IuqBbyWQY4nDlg5NSU";
     }
     
     
