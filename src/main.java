@@ -23,9 +23,10 @@ public class main {
 	            e.printStackTrace();
 	        }
 	        */
-	        AgenteUsuario agente = new AgenteUsuario();
+	        //AgenteUsuario agente = new AgenteUsuario();
 	        
-	        String[] aux={"-port 1099","-gui","-container","agente: Agentes.AgenteUsuario"};
+	      //  String[] aux={"-port 1099","-container","agente: Agentes.AgenteUsuario"};
+	        String[] aux={"-nomtp","Agents:Agentes.AgenteUsuario"};
 	        Boot.main(aux);
 	        
 	        
