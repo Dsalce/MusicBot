@@ -3,6 +3,7 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import Agentes.AgenteUsuario;
+import jade.Boot;
 
 
 
@@ -23,6 +24,9 @@ public class main {
 	        }
 	        */
 	        AgenteUsuario agente = new AgenteUsuario();
+	        
+	        String[] aux={"-port 1099","-gui","-container","agente: Agentes.AgenteUsuario"};
+	        Boot.main(aux);
 	        
 	        
 	    }

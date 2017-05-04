@@ -2,9 +2,17 @@ package Agentes;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+
+
 
 public class AgenteUsuario extends Agent {
+	
+	private static final long serialVersionUID = 1234561L;
+
 	//Variable identificador agente
 	private AID IdentificadorAgente;
 	
@@ -29,34 +37,49 @@ public class AgenteUsuario extends Agent {
 	
 	//Constructor
 	public AgenteUsuario(){
-		//Se crea el identificador del agente
 		
-		setNombre("Agente1");
-		//Se crea el identificador
-		AID identificador = new AID(getNombre(),AID.ISGUID);
-		//Se guarda el identificador
-		setAID(identificador);
-		//Se registra el agente en el AMS
-		setup();		
-	}
-		
-	//Devuelve el nombre del agente
-	private String getNombre() {
-		return nombre;
-	}
-	
-	//Establece el nombre del agente
-	private void setNombre(String nombre) {
-		this.nombre = nombre;
+		//setup();		
 	}
 	
 	//Gestiona el inicio del agente
 	protected void setup() {
-		// inicialización de MiAgente
 		
-		//Se registra el agente en el DF
+		//Se crea el identificador
+		AID prueba = getAID();
+		boolean quepasa = AID.ISGUID;
+		AID identificador = new AID(getAID().getName(),AID.ISGUID);
+		
+		/**************************
+		 El agente debe suscribirse para que los demas agentes le vean 
+		 y para que el pueda ver a los demas
+		 **************************/
+		//Se crea el facilitador de directorio para encontrar a los agentes de alrededor
+		DFAgentDescription descripcion = new DFAgentDescription();
+		descripcion.setName(getAID());
+		
+		//Se crea la descripcion del sercio del agente
+		ServiceDescription servicio = new ServiceDescription();
+		servicio.setType("Usuario");
+		servicio.setName("JADE-Usuario");
+		
+		//Se añade el servicio al facilitador de directorio
+		descripcion.addServices(servicio);
+		
+		//Se registra el agente
+		try {
+			DFService.register(this, descripcion);
+		}
+		catch (FIPAException fe) {
+			fe.printStackTrace();
+		}
+				
+		
 		DFAgentDescription descripcionAgente = new DFAgentDescription();
 		descripcionAgente.setName(getAID());
+		
+		
+		//Se  establece el estado del agente a iniciado
+		estado = INICIADO;
 		
 	}
 
@@ -64,13 +87,6 @@ public class AgenteUsuario extends Agent {
 	protected void takeDown() { 
 	}
 	
-	//Establecer ID agente
-	private void setAID(AID aID) {
-		IdentificadorAgente = aID;
-	}
-	//Devuelve el identificador del agente
-	private AID setAID(){
-		return IdentificadorAgente;
-	}
+	
 	
 }
