@@ -36,6 +36,16 @@ public class main {
 	 * agent platform.
 	 */
 	public static void main(String args[]) {
+		ApiContextInitializer.init();
+        //hola
+
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+
+        try {
+            botsApi.registerBot(new prueba());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
 		try {
 			// Create the Profile 
 			ProfileImpl p = null;
@@ -226,7 +236,7 @@ public class main {
 
 
 
-	/*	
+	/*
 		public static void main(String[] args) {
 
 	        ApiContextInitializer.init();

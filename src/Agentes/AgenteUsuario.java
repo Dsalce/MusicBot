@@ -13,68 +13,22 @@ public class AgenteUsuario extends Agent {
 	
 	private static final long serialVersionUID = 1234561L;
 
-	//Variable identificador agente
-	private AID IdentificadorAgente;
-	
-	//Variable nombre del agente
-	private String nombre;
-	
-	// Almacena la lista de los agentes conocidos que son vendedores de libro
-	private AID[] agentesConocidos;  
-	
-	//Variable estado del agente
-	private int estado;
-	
-	//Definicion de los diferentes estados
-	private final int INICIADO = 0;
-	private final int ACTIVO = 1;
-	private final int SUSPENDIDO = 2;
-	private final int ENESPERA = 3;
-	private final int DESCONOCIDO = 3;
-	private final int TRANSITO = 3;
-	
-	
 	//Gestiona el inicio del agente
 	protected void setup() {
-		
-		//Se crea el identificador
-		AID prueba = getAID();
-		boolean quepasa = AID.ISGUID;
-		AID identificador = new AID(getAID().getName(),AID.ISGUID);
-		
-		System.out.println("sdsf");
-		
-		/**************************
-		 El agente debe suscribirse para que los demas agentes le vean 
-		 y para que el pueda ver a los demas
-		 **************************/
-		//Se crea el facilitador de directorio para encontrar a los agentes de alrededor
-		DFAgentDescription descripcion = new DFAgentDescription();
-		descripcion.setName(getAID());
-		
-		//Se crea la descripcion del sercio del agente
-		ServiceDescription servicio = new ServiceDescription();
-		servicio.setType("Usuario");
-		servicio.setName("JADE-Usuario");
-		
-		//Se añade el servicio al facilitador de directorio
-		descripcion.addServices(servicio);
-		
-		//Se registra el agente
+		// Register the book-selling service in the yellow pages
+		DFAgentDescription dfd = new DFAgentDescription();
+		dfd.setName(getAID());
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("AgenteTelegram");
+		sd.setName("AgenteUsuario");
+		dfd.addServices(sd);
 		try {
-			DFService.register(this, descripcion);
+			DFService.register(this, dfd);
 		}
 		catch (FIPAException fe) {
 			fe.printStackTrace();
 		}
-				
 		
-		DFAgentDescription descripcionAgente = new DFAgentDescription();
-		descripcionAgente.setName(getAID());
-		
-		
-		//Se  establece el estado del agente a iniciado
-		estado = INICIADO;
 		
 	}
 
