@@ -10,7 +10,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 
 public class AgenteUsuario extends Agent {
-	/*
+	
 	private static final long serialVersionUID = 1234561L;
 
 	//Variable identificador agente
@@ -33,13 +33,6 @@ public class AgenteUsuario extends Agent {
 	private final int DESCONOCIDO = 3;
 	private final int TRANSITO = 3;
 	
-	*/
-	
-	//Constructor
-	public AgenteUsuario(){
-		
-		//setup();		
-	}
 	
 	//Gestiona el inicio del agente
 	protected void setup() {
@@ -49,14 +42,14 @@ public class AgenteUsuario extends Agent {
 		boolean quepasa = AID.ISGUID;
 		AID identificador = new AID(getAID().getName(),AID.ISGUID);
 		
-		/*
+		System.out.println("sdsf");
 		
 		/**************************
 		 El agente debe suscribirse para que los demas agentes le vean 
 		 y para que el pueda ver a los demas
 		 **************************/
 		//Se crea el facilitador de directorio para encontrar a los agentes de alrededor
-		/*DFAgentDescription descripcion = new DFAgentDescription();
+		DFAgentDescription descripcion = new DFAgentDescription();
 		descripcion.setName(getAID());
 		
 		//Se crea la descripcion del sercio del agente
@@ -82,7 +75,7 @@ public class AgenteUsuario extends Agent {
 		
 		//Se  establece el estado del agente a iniciado
 		estado = INICIADO;
-		*/
+		
 	}
 
 	// liberación de recursos del agente 
