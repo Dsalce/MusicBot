@@ -1,10 +1,7 @@
+package control;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-
-import Agentes.AgenteUsuario;
-import jade.Boot;
-
 
 import jade.core.Runtime;
 import jade.core.Profile;
@@ -15,34 +12,21 @@ import jade.util.leap.Properties;
 import jade.util.ExtendedProperties;
 import jade.util.Logger;
 
-/**
- * Boots the <B><em>JADE</em></b> system, parsing command line arguments.
- *
- * @author Giovanni Rimassa - Universita' di Parma
- * @author Giovanni Caire - TILAB
- * @author Nicolas Lhuillier - Motorola
- * @author Jerome Picault - Motorola
- * @version $Date: 2010-04-19 16:16:41 +0200 (lun, 19 apr 2010) $ $Revision: 6320 $
- *
- */
 public class main {
 	public static final String DEFAULT_FILENAME = "leap.properties";
 	private static Logger logger = Logger.getMyLogger("jade.Boot");
+	
+	public static Telegram telegram;
 
-	/**
-	 * Fires up the <b><em>JADE</em></b> system.
-	 * This method initializes the Profile Manager and then starts the
-	 * bootstrap process for the <B><em>JADE</em></b>
-	 * agent platform.
-	 */
 	public static void main(String args[]) {
 		ApiContextInitializer.init();
-        //hola
+        		
+		telegram = new Telegram();
 
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new prueba());
+            botsApi.registerBot(telegram);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
