@@ -1,5 +1,6 @@
 package agentes;
 
+import behaviour.LeerMensajesInternos;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -29,7 +30,7 @@ public class AgenteUsuario extends Agent {
 			fe.printStackTrace();
 		}
 		
-		doWait();
+		addBehaviour(new LeerMensajesInternos());
 	}
 
 	// liberación de recursos del agente 

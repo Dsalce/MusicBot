@@ -9,7 +9,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.util.leap.HashMap;
 
 public class BuscarAgentes extends TickerBehaviour{
 	

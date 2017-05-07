@@ -1,19 +1,18 @@
 package control;
-import java.util.Queue;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import jade.util.leap.LinkedList;
+import java.util.LinkedList;
+
 
 
 
 public class Telegram extends TelegramLongPollingBot {
-	
-	private SendMessage[] cola_mensajes = new SendMessage[20];
-	private int numero_elementos = 0;
+		
+	LinkedList cola_mensajes =new LinkedList();
 	
     @Override
     public void onUpdateReceived(Update update) {
@@ -22,9 +21,10 @@ public class Telegram extends TelegramLongPollingBot {
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(update.getMessage().getChatId())
                     .setText(update.getMessage().getText());
-            cola_mensajes[numero_elementos] = message;
-            numero_elementos++;
+            cola_mensajes.add(message);
         }
+        
+        
     }
 
     @Override
@@ -40,18 +40,16 @@ public class Telegram extends TelegramLongPollingBot {
     }
     
     public SendMessage leerMensaje(){
-    	if(cola_mensajes[0] != null){
-    		numero_elementos--;
-    		return cola_mensajes[0];
-    	}else{
-    		return null;
-    	}
-    	
+    	return (SendMessage)cola_mensajes.poll();    	
     }
     
-    public void enviarMensaje(SendMessage mensaje){
+    public void enviarMensaje(String mensaje, String chatID){
+    	//Se crea el mensaje a enviar
+    	SendMessage message = new SendMessage()
+                .setChatId(chatID)
+                .setText(mensaje);
     	try {
-            sendMessage(mensaje); // Call method to send the message
+            sendMessage(message); // Call method to send the message
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
