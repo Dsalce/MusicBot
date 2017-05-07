@@ -6,13 +6,13 @@ import jade.lang.acl.ACLMessage;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import control.Telegram;
-import control.main;
+import control.Main;
 
 public class LeerMensajeTelegram extends CyclicBehaviour{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Telegram tele = main.telegram;
+	private Telegram tele = Main.telegram;
 	
 	//Variable para identificar si es usuario(1) o administrador(2)
 	private int opcion = 0;   

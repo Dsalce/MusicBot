@@ -12,7 +12,7 @@ import jade.util.leap.Properties;
 import jade.util.ExtendedProperties;
 import jade.util.Logger;
 
-public class main {
+public class Main {
 	public static final String DEFAULT_FILENAME = "leap.properties";
 	private static Logger logger = Logger.getMyLogger("jade.Boot");
 	

@@ -2,16 +2,16 @@ package utiles;
 
 import java.util.List;
 import java.util.Properties;
-
+/*
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-
+*/
 
 public class StanfordNPL {
-
+/*
 	public static String parser(String text){
 		String sentiment="" ;
 		try {
@@ -32,6 +32,6 @@ public class StanfordNPL {
 	            System.out.println(sentiment + "\t" + sentence);
 	        }
 			return sentiment;
-	}
+	}*/
 	
 }

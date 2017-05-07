@@ -1,6 +1,6 @@
 //created on: 06-may-2017
 package reglas
-import mainPackage.Message
+import control.Message
 
 rule "Hello World"
     when
