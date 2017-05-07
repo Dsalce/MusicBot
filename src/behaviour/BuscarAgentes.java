@@ -14,7 +14,7 @@ public class BuscarAgentes extends TickerBehaviour{
 	
 	private static final String tipoServicio = "AgenteTelegram";
 	
-	private Object[] listaAgentes = new Object[3];
+	private Object[] listaAgentes = new Object[2];
 
 	public BuscarAgentes(Agent a, long period) {
 		super(a, period);

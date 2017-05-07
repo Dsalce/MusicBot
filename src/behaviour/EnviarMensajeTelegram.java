@@ -1,13 +1,13 @@
 package behaviour;
 
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 
-public class EnviarMensajeTelegram {
+public class EnviarMensajeTelegram extends OneShotBehaviour{
 	
 	static final long serialVersionUID = 1L;
 
 	public void action() {
-		//Consultar continuamente si hay un mensaje nuevo recibido de telegram
+		//Enviar mensaje al usuario
 		
 	}
 	

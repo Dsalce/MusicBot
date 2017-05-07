@@ -49,8 +49,13 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 						//Enviar el mensaje al agente usuario
 						ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 						msg.addReceiver(agente);
-						msg.setContent(mensaje.getChatId() + "," + mensaje.getText());
-						myAgent.send(msg);
+						String chatID = mensaje.getChatId();
+						String texto = mensaje.getText();
+						if((chatID != null) && (texto != null)){
+							msg.setContent(chatID + "," + texto);
+							myAgent.send(msg);
+						}
+						
 						break;
 					}
 				}
