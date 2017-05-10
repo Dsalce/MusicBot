@@ -16,7 +16,6 @@ import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
-<<<<<<< HEAD
 import edu.stanford.nlp.ling.CoreAnnotations.NormalizedNamedEntityTagAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
@@ -28,15 +27,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.tokensregex.Env;
 import edu.stanford.nlp.ling.tokensregex.TokenSequencePattern;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
-=======
-import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TrueCaseAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TrueCaseTextAnnotation;
-import edu.stanford.nlp.ling.CoreLabel;
->>>>>>> branch 'master' of https://github.com/chgomezr/MusicBot.git
+
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.RegexNERAnnotator;
 import edu.stanford.nlp.util.CoreMap;
@@ -108,12 +99,12 @@ public class StanfordNPL {
        
 }
 		
-	public static String sentiment(String text){
+	public static void sentiment(String text){
 
 		String sentiment="" ;
-		String text="monday";
+		String text1="monday";
 		try {
-			 text = utiles.Translator.callUrlAndParseResult("es", "en", text);
+			 text1 = utiles.Translator.callUrlAndParseResult("es", "en", text1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,7 +121,7 @@ public class StanfordNPL {
        
        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
        
-       Annotation annotation = pipeline.process(text);
+       Annotation annotation = pipeline.process(text1);
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
@@ -150,6 +141,3 @@ public class StanfordNPL {
 	
 	
 }
-		
-
-	
