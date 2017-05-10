@@ -9,6 +9,7 @@ import jade.core.ProfileImpl;
 import jade.core.ProfileException;
 
 import jade.util.leap.Properties;
+import utiles.LlamarReglas;
 import utiles.StanfordNPL;
 import jade.util.ExtendedProperties;
 import jade.util.Logger;
@@ -22,9 +23,13 @@ public class Main {
 	public static void main(String args[]) {
 		
 		
+		LlamarReglas pasarPorReglas = new LlamarReglas();
+		String respuesta = pasarPorReglas.reglasIni("hola");
+		
 		//Prueba reglas
 		StanfordNPL standfor = new StanfordNPL();
-		standfor.prueba2();
+		//standfor.prueba();
+		standfor.prueba();
 		
 		
 		

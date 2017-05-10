@@ -9,7 +9,8 @@ import control.Message;
 public class LlamarReglas {
 
 	
-	public void  reglasIni(){
+	public String  reglasIni(String palabra){
+		Message message = new Message();
 		try {
             // load up the knowledge base
 	        KieServices ks = KieServices.Factory.get();
@@ -17,14 +18,16 @@ public class LlamarReglas {
         	KieSession kSession = kContainer.newKieSession("ksession-rules");
 
             // go !
-            Message message = new Message();
-            message.setMessage("Hello World");
-            message.setStatus(Message.HELLO);
+           
+            message.setMessage(palabra);
+            
+            //message.setStatus(Message.HELLO);
             kSession.insert(message);
             kSession.fireAllRules();
         } catch (Throwable t) {
             t.printStackTrace();
         }
+		return message.getStatus();
 	}
 	
 	

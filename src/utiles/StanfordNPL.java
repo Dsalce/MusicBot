@@ -37,10 +37,12 @@ public class StanfordNPL {
 
 
 	public  void prueba(){
+	
 		
-		String text="monday";
+		String text="buenos dias";
 		try {
 			 text = utiles.Translator.callUrlAndParseResult("es", "en", text);
+			 System.out.println(utiles.Translator.callUrlAndParseResult("en", "es", text)); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,18 +51,19 @@ public class StanfordNPL {
        Properties props = new Properties();
        props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse,ner");//,ner,regexner, sentiment");
        props.setProperty("ner.useSUTime", "0");
-       //props.setProperty("sutime.rules", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\sutime\\english.sutime.txt");
-      // props.put("regexner.mapping", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\tokensregex\\colorrules.txt");
-       Env env = TokenSequencePattern.getNewEnv(); 
-       env.bind("$RELDAY", "/today|yesterday|tomorrow|tonight|tonite/");
-      // env.bind("$RELDAY", TokenSequencePattern.compile(env, "/today|yesterday|tomorrow|tonight|tonite/"));
-      // CustomLemmaAnnotator prueba  =new CustomLemmaAnnotator("prueba",props);
+    // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and coreference resolution 
+
+       StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+       
+       CustomLemmaAnnotator prueba  =new CustomLemmaAnnotator("prueba",props);
        //C:\\Users\\dsalc\\git\\MusicBot\\
       
        
-       StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+       //StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
        
-       Annotation annotation = pipeline.process(text);
+       Annotation annotation = new Annotation("A");
+       
+       prueba.annotate(annotation);
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
@@ -102,7 +105,7 @@ public class StanfordNPL {
 	public static void sentiment(String text){
 
 		String sentiment="" ;
-		String text1="monday";
+		String text1="salcedo";
 		try {
 			 text1 = utiles.Translator.callUrlAndParseResult("es", "en", text1);
 		} catch (Exception e) {
@@ -111,7 +114,9 @@ public class StanfordNPL {
 		}
 	    
        Properties props = new Properties();
-       props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse,ner, sentiment");//,ner,regexner, sentiment");
+       props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse,ner");//,ner,regexner, sentiment");
+       props.setProperty("ner.useSUTime", "0");
+       props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");//,ner,regexner, sentiment");
        //props.put("regexner.mapping", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\sutime\\english.sutime.txt");
        //props.put("regexner.mapping", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\sutime\\english.sutime.txt");
 

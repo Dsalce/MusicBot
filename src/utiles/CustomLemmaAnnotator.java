@@ -17,7 +17,7 @@ public class CustomLemmaAnnotator implements Annotator {
     // format should be tsv with word and lemma
 	  //C:\Users\dsalc\git\MusicBot
     String lemmaFile = props.getProperty("pattern,ner,normalized,overwrite,priority,group");//"C:\\Users\\dsalc\\git\\MusicBot\\train.tsv");
-    List<String> lemmaEntries = IOUtils.linesFromFile("D:\\DasiGit\\train.tsv");
+    List<String> lemmaEntries = IOUtils.linesFromFile("C:\\Users\\Iosu\\Desktop\\train.tsv");
     for (String lemmaEntry : lemmaEntries) {
       wordToLemma.put(lemmaEntry.split("\\t")[0], lemmaEntry.split("\\t")[1]);
     }

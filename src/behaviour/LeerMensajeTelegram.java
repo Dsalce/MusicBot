@@ -3,6 +3,7 @@ package behaviour;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import utiles.LlamarReglas;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import control.Telegram;
@@ -29,6 +30,9 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 		 * TRATAMIENTO DEL MENSAJE PARTE DE SALCEDO
 		 * 
 		 */
+		LlamarReglas pasarPorReglas = new LlamarReglas();
+		String respuesta = pasarPorReglas.reglasIni("hola");
+		
 		
 		//Provisionala hasta que salcedo ponga lo suyo
 		if(mensaje != null){

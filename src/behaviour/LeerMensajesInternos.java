@@ -42,7 +42,6 @@ public class LeerMensajesInternos extends CyclicBehaviour{
 			//Posicion 0 esta el chatId que es el que nos interesa almacenar
 			String chatID = arrayParametros[0];
 			
-			reglas.reglasIni();
 			
 			
 			

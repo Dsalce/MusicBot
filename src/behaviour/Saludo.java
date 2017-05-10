@@ -10,5 +10,4 @@ public class Saludo extends OneShotBehaviour{
 		System.out.println("Hola, soy el agente" + myAgent.getName());
 	}
 
-
 }

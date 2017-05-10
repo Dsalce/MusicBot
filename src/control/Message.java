@@ -3,13 +3,10 @@ package control;
 
 
 public class Message {
-	
-	 public static final int HELLO = 0;
-     public static final int GOODBYE = 1;
 
-     private String message;
+     public static String message;
 
-     private int status;
+     private String tag;
 
      public String getMessage() {
          return this.message;
@@ -19,11 +16,11 @@ public class Message {
          this.message = message;
      }
 
-     public int getStatus() {
-         return this.status;
+     public String getStatus() {
+         return this.tag;
      }
 
-     public void setStatus(int status) {
-         this.status = status;
+     public void setStatus(String tag) {
+         this.tag = tag;
      }
 }
