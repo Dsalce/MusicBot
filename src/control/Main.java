@@ -9,6 +9,7 @@ import jade.core.ProfileImpl;
 import jade.core.ProfileException;
 
 import jade.util.leap.Properties;
+import utiles.StanfordNPL;
 import jade.util.ExtendedProperties;
 import jade.util.Logger;
 
@@ -19,6 +20,15 @@ public class Main {
 	public static Telegram telegram;
 
 	public static void main(String args[]) {
+		
+		
+		//Prueba reglas
+		StanfordNPL standfor = new StanfordNPL();
+		standfor.prueba2();
+		
+		
+		
+		
 		ApiContextInitializer.init();
         		
 		telegram = new Telegram();
