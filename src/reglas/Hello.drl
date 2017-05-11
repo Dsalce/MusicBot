@@ -15,7 +15,34 @@ rule "hola"
     when
         m : Message( message == "hola", myMessage : message )
     then
-        m.setMessage( "Goodbye cruel world" );
+       
+        m.setStatus( "Saludo" );
+        update( m );
+end
+
+rule "buenas tardes"
+    when
+        m : Message( message == "buenas tardes", myMessage : message )
+    then
+     
+        m.setStatus( "Saludo" );
+        update( m );
+end
+
+rule "que tal"
+    when
+        m : Message( message == "que tal", myMessage : message )
+    then
+     
+        m.setStatus( "Saludo" );
+        update( m );
+end
+
+rule "ey"
+    when
+        m : Message( message == "ey", myMessage : message )
+    then
+     
         m.setStatus( "Saludo" );
         update( m );
 end

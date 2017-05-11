@@ -1,0 +1,32 @@
+//created on: 11-may-2017
+package reglas
+
+//list any import classes here.
+import control.Message
+
+
+//declare any global variables here
+
+function myFunction(  ) {
+    //function content (can have multiple functions) 
+}
+
+
+
+rule "adios"
+    when
+        m : Message( message == "adios", myMessage : message )
+    then
+       
+        m.setStatus( "Adios" );
+        update( m );
+end
+
+rule "salir"
+    //include attributes such as "salience" here...
+    when
+        //conditions
+    then
+        //actions
+
+end
