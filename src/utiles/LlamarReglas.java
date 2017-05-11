@@ -4,12 +4,13 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-import control.Message;
+import model.Message;
+import model.TypeMessage;
 
 public class LlamarReglas {
 
 	
-	public String  reglasIni(String palabra){
+	public TypeMessage parseWord(String palabra){
 		Message message = new Message();
 		try {
             // load up the knowledge base
@@ -27,7 +28,7 @@ public class LlamarReglas {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-		return message.getStatus();
+		return message.getTypeMessage();
 	}
 	
 	

@@ -2,28 +2,27 @@
 package reglas
 import control.Message
 
-rule "buenos dias"
+rule "GOOD MORNING"
     when
-        m : Message( message == "buenos dias", myMessage : message )
+        m : Message( message == "GOOD MORNING", myMessage : message )
     then
-        m.setStatus( "Saludo" );
+        m.setTypeMessage( "Saludo" );
         update( m );
 end
 
 
-rule "hola"
+rule "HELLO"
     when
-        m : Message( message == "hola", myMessage : message )
+        m : Message( message == "HELLO", myMessage : message )
     then
-        m.setMessage( "Goodbye cruel world" );
-        m.setStatus( "Saludo" );
+        m.setTypeMessage( "Saludo" );
         update( m );
 end
 
 
-rule "GoodBye"
+rule "HI"
     when
-        Message( message == "hola", myMessage : message )
+        Message( message == "HI", myMessage : message )
     then
         System.out.println( myMessage );
 end
