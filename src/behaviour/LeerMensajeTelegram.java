@@ -3,20 +3,32 @@ package behaviour;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+
 import utiles.LlamarReglas;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import control.Telegram;
 import control.Main;
+import utiles.StanfordNPL;
 
 public class LeerMensajeTelegram extends CyclicBehaviour{
 
 	private static final long serialVersionUID = 1L;
 	
+	//Variable con la instancia telegram
 	private Telegram tele = Main.telegram;
 	
 	//Variable para identificar si es usuario(1) o administrador(2)
-	private int opcion = 0;   
+	private int opcion = 0;  
+	
+	//Instancia para Standfor
+	private StanfordNPL standfor = new StanfordNPL();
+	
+	//Instancia para las reglas
+	private LlamarReglas reglas = new LlamarReglas();
 	
 	public void action() {
 		//Se lee todos los mensajes recibidos por telegram
@@ -30,6 +42,8 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 		 * TRATAMIENTO DEL MENSAJE PARTE DE SALCEDO
 		 * 
 		 */
+		
+		analizarPorStandfor(mensaje.getText());
 		LlamarReglas pasarPorReglas = new LlamarReglas();
 		String respuesta = pasarPorReglas.reglasIni("hola");
 		
@@ -86,6 +100,33 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				
 		}
 		
+	}
+	
+	//Se encarga de gestionar el analisis del mensaje por standfor
+	private void analizarPorStandfor(String mensaje){
+		int iterador = 0;
+		Lexico palabra = new Lexico();
+		//Guarda y analiza la lisa de palabras analizadas
+		List<String> listaPalabras = new ArrayList<String>();
+		//Se recorre 
+		for (iterador=0;iterador<listaPalabras.size();iterador++){
+			//Obtener el objeto de la posicion iterador
+			palabra = listaPalabras.get(iterator);
+			
+			if(palabra.tag == ""){
+				analizarPorReglas(palabra);
+			}else{
+				
+			}
+			
+		}
+		//
+		standfor.parser(mensaje);
+	}
+	
+	//Se encarga de gestionar el analisis del mensaje mediante las reglas
+	private void analizarPorReglas(Lexico palabra){
+		reglas.parseWord(palabra.getWord);
 	}
 
 }
