@@ -36,13 +36,13 @@ import edu.stanford.nlp.util.CoreMap;
 public class StanfordNPL {
 
 
-	public  void prueba(){
-	
+	public  List<Lexico> parser(String text){
+	   List<Lexico> lex=new ArrayList<Lexico>();
 		
-		String text="buenos dias";
+		
 		try {
-			 text = utiles.Translator.callUrlAndParseResult("es", "en", text);
-			 System.out.println(utiles.Translator.callUrlAndParseResult("en", "es", text)); 
+			text = utiles.Translator.callUrlAndParseResult("es", "en", text);
+			// System.out.println(utiles.Translator.callUrlAndParseResult("en", "es", text)); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,51 +55,42 @@ public class StanfordNPL {
 
        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
        
-       CustomLemmaAnnotator prueba  =new CustomLemmaAnnotator("prueba",props);
-       //C:\\Users\\dsalc\\git\\MusicBot\\
       
+       Annotation annotation = pipeline.process(text);
        
-       //StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-       
-       Annotation annotation = new Annotation("A");
-       
-       prueba.annotate(annotation);
+    
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
        	
        	 for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
        	        // this is the text of the token
-       	        String word = token.get(TextAnnotation.class);
+       	        
+       	        String word=token.get(TextAnnotation.class).toUpperCase();
        	        // this is the POS tag of the token
        	        String pos = token.get(PartOfSpeechAnnotation.class);
        	        // this is the NER label of the token
        	        String ne = token.get(NamedEntityTagAnnotation.class);
-       	        String reg= token.get(NormalizedNamedEntityTagAnnotation.class);
-       	     
-    	        String ln= token.get(LemmaAnnotation.class);
+       	        if(ne.equals("O")){
+       	        	ne="";
+       	        }
+       	      //  String reg= token.get(NormalizedNamedEntityTagAnnotation.class);
+       	        lex.add(new Lexico(word,pos,ne));
+    	      //  String ln= token.get(LemmaAnnotation.class);
 
-       	        System.out.println("word: " + word + " pos: " + pos + " ne:" + ne +" reg:"+reg+" leN:"+ln);
-       	
-       	        String text1 = token.get(TextAnnotation.class);
-       	        String trueCase = token.get(TrueCaseAnnotation.class);
-       	        String trueCaseText = token.get(TrueCaseTextAnnotation.class);
-       	        System.out.printf("input:%s state:%s output:%s\n", text1, trueCase, trueCaseText);
+       	        System.out.println("word: " + word + " pos: " + pos + " ne:" + ne );
+       	 
+       	       
        	        
        	 }
        	
           
            
-           Tree tree = sentence.get(TreeAnnotation.class);
-           System.out.println("parse tree:\n" + tree);
-
-           // this is the Stanford dependency graph of the current sentence
-           SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
-           System.out.println("dependency graph:\n" + dependencies);
+          
            
            
-          }
-       
+      }
+       return lex;
 }
 		
 	public static void sentiment(String text){
