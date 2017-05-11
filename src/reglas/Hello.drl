@@ -1,13 +1,13 @@
 //created on: 06-may-2017
 package reglas
-import control.Message
+import model.Message
 
 rule "GOOD MORNING"
     when
         m : Message( message == "GOOD MORNING", myMessage : message )
     then
-        m.setTypeMessage( "Saludo" );
-        update( m );
+        m.setTagMessage( "Saludo" );
+        //update( m );
 end
 
 
@@ -15,14 +15,15 @@ rule "HELLO"
     when
         m : Message( message == "HELLO", myMessage : message )
     then
-        m.setTypeMessage( "Saludo" );
-        update( m );
+        m.setTagMessage( "Saludo" );
+        //update( m );
 end
 
 
 rule "HI"
     when
-        Message( message == "HI", myMessage : message )
+        m : Message( message == "HI", myMessage : message )
     then
         System.out.println( myMessage );
+        m.setTagMessage("Saludo");
 end

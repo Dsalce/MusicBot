@@ -10,7 +10,7 @@ import model.TypeMessage;
 public class LlamarReglas {
 
 	
-	public TypeMessage parseWord(String palabra){
+	public String parseWord(String palabra){
 		Message message = new Message();
 		try {
             // load up the knowledge base
@@ -22,13 +22,12 @@ public class LlamarReglas {
            
             message.setMessage(palabra);
             
-            //message.setStatus(Message.HELLO);
             kSession.insert(message);
             kSession.fireAllRules();
         } catch (Throwable t) {
             t.printStackTrace();
         }
-		return message.getTypeMessage();
+		return message.getTagMessage();
 	}
 	
 	

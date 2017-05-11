@@ -14,6 +14,8 @@ import javax.persistence.*;
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String tagMessage = "";
+	
 	@Id
 	private int idMessage;
 
@@ -50,6 +52,14 @@ public class Message implements Serializable {
 
 	public void setTypeMessage(TypeMessage typeMessage) {
 		this.typeMessage = typeMessage;
+	}
+	
+	public void setTagMessage(String tag){
+		this.tagMessage = tag;
+	}
+	
+	public String getTagMessage(){
+		return this.tagMessage;
 	}
 
 }

@@ -22,19 +22,7 @@ public class Main {
 	public static Telegram telegram;
 
 	public static void main(String args[]) {
-		
-		
-		LlamarReglas pasarPorReglas = new LlamarReglas();
-		TypeMessage respuesta = pasarPorReglas.reglasIni("hola");
-		
-		//Prueba reglas
-		StanfordNPL standfor = new StanfordNPL();
-		//standfor.prueba();
-		standfor.prueba();
-		
-		
-		
-		
+				
 		ApiContextInitializer.init();
         		
 		telegram = new Telegram();
