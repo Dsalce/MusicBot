@@ -1,4 +1,6 @@
 package control;
+import model.TypeMessage;
+
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -7,7 +9,6 @@ import jade.core.Runtime;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.ProfileException;
-
 import jade.util.leap.Properties;
 import utiles.LlamarReglas;
 import utiles.StanfordNPL;
@@ -24,7 +25,7 @@ public class Main {
 		
 		
 		LlamarReglas pasarPorReglas = new LlamarReglas();
-		String respuesta = pasarPorReglas.reglasIni("hola");
+		TypeMessage respuesta = pasarPorReglas.reglasIni("hola");
 		
 		//Prueba reglas
 		StanfordNPL standfor = new StanfordNPL();
