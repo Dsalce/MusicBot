@@ -20,8 +20,6 @@ import utiles.StanfordNPL;
 import utiles.AnalizarMensaje;
 
 public class LeerMensajeTelegram extends CyclicBehaviour{
-
-	private Manager myManager = new Manager();
 	
 	private static final long serialVersionUID = 1L;
 	

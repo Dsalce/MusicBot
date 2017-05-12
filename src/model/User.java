@@ -14,6 +14,14 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public User(int chatId,String state,String password,boolean admin) {
+		this.chatId = chatId;
+		this.state = state;
+		this.password = password;
+		this.admin = admin;
+		
+	}
 
 	@Id
 	private int chatId;
@@ -23,7 +31,6 @@ public class User implements Serializable {
 	private String password;
 	
 	private boolean admin;
-
 
 
 	public boolean isAdmin() {
@@ -42,9 +49,7 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<UserMusic> userMusics;
 
-	public User() {
-	}
-
+	
 	public int getIdUser() {
 		return this.chatId;
 	}

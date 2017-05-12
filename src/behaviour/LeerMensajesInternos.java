@@ -6,6 +6,7 @@ import jade.lang.acl.MessageTemplate;
 import utiles.LlamarReglas;
 import control.Telegram;
 import control.Main;
+import behaviour.InsertarUsuarioBBDD;
 
 
 public class LeerMensajesInternos extends CyclicBehaviour{
@@ -34,14 +35,9 @@ public class LeerMensajesInternos extends CyclicBehaviour{
 			//Se introduce los argumentos al agente
 			myAgent.setArguments(parametros);
 			
-			/*
-			//Se pasan los argumentos separados por ,
-			String[] arrayParametros = mensaje.split(",");
-			
-			//Se procede a enviar el mensaje de respuesta al usuario 
-			//Posicion 0 esta el chatId que es el que nos interesa almacenar
-			String chatID = arrayParametros[0];
-		*/
+			//Se  lanza el comportamiento para introducir al usuario en la BBDD
+			InsertarUsuarioBBDD usuario = new InsertarUsuarioBBDD();
+			myAgent.addBehaviour(usuario);
 			
 		}
 		else {
