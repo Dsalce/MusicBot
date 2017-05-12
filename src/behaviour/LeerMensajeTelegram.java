@@ -17,8 +17,6 @@ import control.Telegram;
 import control.Main;
 import utiles.StanfordNPL;
 
-import utiles.AnalizarMensaje;
-
 public class LeerMensajeTelegram extends CyclicBehaviour{
 	
 	private static final long serialVersionUID = 1L;
@@ -44,14 +42,10 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 		
 		//variable local para la lista de agentes
 		Object[] listaAgentes = null;
-		
-		//Instancia para analizar mensajes
-		AnalizarMensaje analizador = new AnalizarMensaje();
 				
 		//Provisionala hasta que salcedo ponga lo suyo
 		if(mensaje != null){
-			analizador.analizarPorStandfor(mensaje.getText());
-			opcion = 1;
+			opcion = analizarPorStandfor(mensaje.getText(),mensaje.getChatId());
 		}
 		
 		//Dependiendo del tipo de mensaje se lo pasamos a un agente u otro
@@ -101,5 +95,39 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				
 		}
 		
+	}
+	
+	
+	//Se encarga de gestionar el analisis del mensaje por standfor
+	private int analizarPorStandfor(String mensaje, String chatId){
+		int iterador = 0;
+		Lexico palabra = null;
+		String tag = "";
+		//Guarda y analiza la lisa de palabras analizadas
+		List<Lexico> listaPalabras = standfor.parser(mensaje);;
+		//Se recorre 
+		for (iterador=0;iterador<listaPalabras.size();iterador++){
+			//Obtener el objeto de la posicion iterador
+			palabra = listaPalabras.get(iterador);
+			tag = palabra.getTag();
+			if(tag == ""){
+				//Se analiza la palabra mediante drools para intentar identificar su tag
+				tag = analizarPorReglas(palabra);
+			}
+			
+			//En caso de ser un saludo
+			if(tag == "Admin"){
+				//Se pasa el mensaje al agente administrador para busque la respuesta al mensaje
+				return 1;
+			}
+		}
+		//Si no encuentra ningun tag de aministrador entonces es un usuario estandar
+		return 0;
+	}
+	
+	//Se encarga de gestionar el analisis del mensaje mediante las reglas
+	private String analizarPorReglas(Lexico palabra){
+		//Se devuelve el tag de la palabra analizada por drools
+		return reglas.parseWord(palabra.getWord());
 	}
 }
