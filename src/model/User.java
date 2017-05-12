@@ -16,13 +16,27 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idUser;
+	private int chatId;
 
-	private String lastName;
+	private String state;
+	
+	private String password;
+	
+	private boolean admin;
 
-	private String login;
 
-	private String name;
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	//bi-directional many-to-one association to UserMusic
 	@OneToMany(mappedBy="user")
@@ -32,35 +46,20 @@ public class User implements Serializable {
 	}
 
 	public int getIdUser() {
-		return this.idUser;
+		return this.chatId;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setIdUser(int chatId) {
+		this.chatId = chatId;
 	}
 
-	public String getLastName() {
-		return this.lastName;
+
+	public String getState() {
+		return this.state;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getLogin() {
-		return this.login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public List<UserMusic> getUserMusics() {

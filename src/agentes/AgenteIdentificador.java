@@ -1,7 +1,6 @@
 package agentes;
 
 import behaviour.BuscarAgentes;
-import behaviour.DescubrirTipoUsusuario;
 import behaviour.LeerMensajeTelegram;
 import behaviour.Saludo;
 

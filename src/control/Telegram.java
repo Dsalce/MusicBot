@@ -43,17 +43,6 @@ public class Telegram extends TelegramLongPollingBot {
     	return (SendMessage)cola_mensajes.poll();    	
     }
     
-    public void enviarMensaje(String mensaje, String chatID){
-    	//Se crea el mensaje a enviar
-    	SendMessage message = new SendMessage()
-                .setChatId(chatID)
-                .setText(mensaje);
-    	try {
-            sendMessage(message); // Call method to send the message
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
     
     
 }

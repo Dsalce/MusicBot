@@ -34,19 +34,14 @@ public class LeerMensajesInternos extends CyclicBehaviour{
 			//Se introduce los argumentos al agente
 			myAgent.setArguments(parametros);
 			
-			
+			/*
 			//Se pasan los argumentos separados por ,
 			String[] arrayParametros = mensaje.split(",");
 			
 			//Se procede a enviar el mensaje de respuesta al usuario 
 			//Posicion 0 esta el chatId que es el que nos interesa almacenar
 			String chatID = arrayParametros[0];
-			
-			
-			
-			
-			//Prueba para ver que funciona
-			tele.enviarMensaje(arrayParametros[1],arrayParametros[0]);
+		*/
 			
 		}
 		else {

@@ -1,6 +1,8 @@
 package behaviour;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -9,12 +11,15 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import utiles.Lexico;
 
 public class BuscarAgentes extends TickerBehaviour{
 	
 	private static final String tipoServicio = "AgenteTelegram";
 	
-	private Object[] listaAgentes = new Object[2];
+	private List<AID> listaAgentes = new ArrayList<AID>();
+	
+	private Object[] parametros = new Object[2];
 
 	public BuscarAgentes(Agent a, long period) {
 		super(a, period);
@@ -40,7 +45,7 @@ public class BuscarAgentes extends TickerBehaviour{
 	  			for (int i = 0; i < resultados.length; ++i) {
 	  				DFAgentDescription dfd = resultados[i];
 	  				AID provider = dfd.getName();
-	  				listaAgentes[i] = provider;
+	  				listaAgentes.add(provider);
 	  				// Un agente puede ofrecer varios servicios, hay que buscar solo el tipoServicio especificado
 	  				Iterator it = dfd.getAllServices();
 	  				while (it.hasNext()) {
@@ -50,7 +55,8 @@ public class BuscarAgentes extends TickerBehaviour{
 	  					}
 	  				}
 	  			}
-	  			myAgent.setArguments(listaAgentes);
+	  			parametros[0]=listaAgentes;
+	  			myAgent.setArguments(parametros);
 	  		}	
 	  		else {
 	  			System.out.println("El agente "+myAgent.getLocalName()+" no encontró ningún agente "+tipoServicio+".");
