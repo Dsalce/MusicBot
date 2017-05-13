@@ -31,11 +31,13 @@ public class AnalisisMensaje extends OneShotBehaviour{
 	//Insatancia del comportamiento para enviar el mensaje de respuesta al usuario
 	private EnviarMensajeTelegram mensajeRespuesta;
 	
+	//Se almacenan los parametros del agente
+	Object[] parametros;
+	
 	//Introducir usuario en la BBDD
 	public void action() {
 		//Se coge el mensaje del usuario de los argumentos del agente
 		//Instancia la clase objeto para recoger los parametros del agente
-		Object[] parametros;
 		parametros = myAgent.getArguments();
 		
 		String mensaje = (String)parametros[0];
@@ -52,7 +54,7 @@ public class AnalisisMensaje extends OneShotBehaviour{
 		Lexico palabra = null;
 		String tag = "";
 		//Guarda y analiza la lisa de palabras analizadas
-		List<Lexico> listaPalabras = new ArrayList<Lexico>();
+		List<Lexico> listaPalabras = standfor.parser(mensaje);
 		//Se recorre 
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
@@ -65,16 +67,30 @@ public class AnalisisMensaje extends OneShotBehaviour{
 			
 			//En caso de ser un saludo
 			if(tag == "Saludo"){
+				//Se añade el tag a la palabra
+				listaPalabras.get(iterador).setTipo(tag);
 				//Se llama a la funcion encargada de saludar al usuario
 				saludarUsuario(chatId);
 			}
 			//En caso de ser una despedida
 			else if(tag == "Bye"){
+				//Se añade el tag a la palabra
+				listaPalabras.get(iterador).setTipo(tag);
 				//Se llama a la funcion encargada de despedirse del usuario
 				despedidaUsuario(chatId);
 			}
 		}
-		standfor.parser(mensaje);
+		//Se introducen en el agente la lista de palabras con su tag
+		parametros[1] = listaPalabras;
+		myAgent.setArguments(parametros);
+		
+		//Mantener conversacion con el usuario dependindo de su tipo (user o admin)
+		String nombreAgente = myAgent.getAID().getName();
+		if(nombreAgente == "Usuario"){
+			//Analizamos la frase segun dependiendo del agente
+		}else if (nombreAgente == "Admin"){
+			//Analizamos la frase segun dependiendo del agente
+		}
 	}
 	
 	//Se encarga de gestionar el analisis del mensaje mediante las reglas

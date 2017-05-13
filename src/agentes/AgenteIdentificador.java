@@ -2,6 +2,7 @@ package agentes;
 
 import behaviour.BuscarAgentes;
 import behaviour.LeerMensajeTelegram;
+import behaviour.LeerMensajesInternos;
 import behaviour.Saludo;
 
 import jade.core.Agent;
@@ -25,8 +26,7 @@ public class AgenteIdentificador extends Agent {
 		BuscarAgentes buscarAgentes = new BuscarAgentes(this,10);
 		addBehaviour(buscarAgentes);
 		
-		//Se añade el comportamiento para que este buscando si hay mensaje en el cola de telegram
-		addBehaviour(new LeerMensajeTelegram());
+		addBehaviour(new LeerMensajesInternos());
 			  	
 	}
 
