@@ -49,7 +49,7 @@ public class StanfordNPL {
 		}
 	    
        Properties props = new Properties();
-       props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse,ner");//,ner,regexner, sentiment");
+       props.setProperty("annotators", "tokenize, ssplit, pos, lemma,ner");//,ner,regexner, sentiment");
        props.setProperty("ner.useSUTime", "0");
     // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and coreference resolution 
 
