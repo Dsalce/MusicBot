@@ -37,10 +37,11 @@ public class Manager
 	
 	public Manager()
 	{
+		/*
 		OfMusics = new RepositoryBase<Music>(Music.class);
 		OfUseres = new RepositoryBase<User>(User.class);
 		OfUserMusics = new RepositoryBase<UserMusic>(UserMusic.class);
-		OfStates = new RepositoryBase<State>(State.class);
+		OfStates = new RepositoryBase<State>(State.class);*/
 		OfTypeMessage = new RepositoryBase<>(TypeMessage.class);
 		OfMessage = new RepositoryBase<>(Message.class);
 	}

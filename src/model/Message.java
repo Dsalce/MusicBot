@@ -14,6 +14,16 @@ import javax.persistence.*;
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private String TagMessage;
+	
+	public String getTagMessage() {
+		return TagMessage;
+	}
+
+	public void setTagMessage(String tag) {
+		this.TagMessage = tag;
+	}
+
 	@Id
 	private int idMessage;
 

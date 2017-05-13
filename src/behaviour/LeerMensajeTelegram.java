@@ -84,9 +84,9 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							msg.setContent(chatID + "," + texto);
 							myAgent.send(msg);
 						}
+						opcion = 0;
 						
 						break;
 					}
@@ -119,10 +119,9 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							msg.setContent(chatID + "," + texto);
 							myAgent.send(msg);
 						}
-						
+						opcion = 0;
 						break;
 					}
 				}

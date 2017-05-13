@@ -30,11 +30,20 @@ public class InsertarUsuarioBBDD extends OneShotBehaviour{
 		User usuario = new User(chatID,"","",false);
 		myManager.Users().Add(usuario);
 		
-		//Se lanza el comportamiento analisis del mensaje del usuario
-		AnalisisMensaje analisis = new AnalisisMensaje();
-		myAgent.addBehaviour(analisis);
-		
-		
+		//Se analiza el mensaje dependiendo del tipo de agente que esta analizando
+		if(myAgent.getName().contains("Usuario")){
+			
+			//Se lanza el comportamiento analisis del mensaje del usuario
+			AnalisisMensaje analisis = new AnalisisMensaje();
+			myAgent.addBehaviour(analisis);
+			
+		}else if(myAgent.getLocalName().contains("Administrador")){
+			
+			//Se lanza el comportamiento analisis del mensaje del usuario
+			AnalisisAdmin analisis = new AnalisisAdmin();
+			myAgent.addBehaviour(analisis);
+			
+		}
 	}
 	
 }

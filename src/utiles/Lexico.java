@@ -1,6 +1,8 @@
 package utiles;
 
-public class Lexico {
+import java.io.Serializable;
+
+public class Lexico implements Serializable {
     private String word;
     private String tipo;
     private String tag;

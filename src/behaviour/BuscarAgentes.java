@@ -25,6 +25,50 @@ public class BuscarAgentes extends TickerBehaviour{
 		super(a, period);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/******
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 * 
+	 * 
+	 * FALTAAAAAAAAAAAAAAAAAAAAAAAAAAA CAMBIAR EL TIPO DE BEHAVIOUR PARA QUE NO ESTE TODO EL RATO BUSCANDO
+	 * 
+	 * 
+	 */
 
 	
 	
@@ -40,6 +84,16 @@ public class BuscarAgentes extends TickerBehaviour{
 	  		//Se almacenan los agentes encontrados
 	  		DFAgentDescription[] resultados = DFService.search(myAgent, templateAD);
 	  		
+	  		//PROVISIONALLLLLL
+				/*
+				 * 
+				 * 
+				 * 
+				 * 
+				 */
+			listaAgentes = new ArrayList<AID>();
+			
+			
 	  		if (resultados.length > 0) {
 	  			System.out.println("El agente "+myAgent.getLocalName()+" encontró los siguientes agentes de tipo "+tipoServicio+":");
 	  			for (int i = 0; i < resultados.length; ++i) {

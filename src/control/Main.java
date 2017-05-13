@@ -5,6 +5,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import bussines.Manager;
 import jade.core.Runtime;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -22,6 +23,7 @@ public class Main {
 	public static Telegram telegram;
 
 	public static void main(String args[]) {
+		Manager myManager = new Manager();
 				
 		ApiContextInitializer.init();
         		
