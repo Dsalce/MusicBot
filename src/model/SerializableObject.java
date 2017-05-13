@@ -15,4 +15,24 @@ public class SerializableObject implements Serializable{
 		this.chatId = chatId;
 		this.lista = lista;
 	}
+
+
+	public String getChatId() {
+		return chatId;
+	}
+
+
+	public void setChatId(String chatId) {
+		this.chatId = chatId;
+	}
+
+
+	public List<Lexico> getLista() {
+		return lista;
+	}
+
+
+	public void setLista(List<Lexico> lista) {
+		this.lista = lista;
+	}
 }

@@ -63,23 +63,23 @@ public class AnalisisMensaje extends OneShotBehaviour{
 			if(tag == ""){
 				//Se analiza la palabra mediante drools para intentar identificar su tag
 				tag = analizarPorReglas(palabra);
+				//Se actualiza el tag de la palabra con el resultado obtenido
+				listaPalabras.get(iterador).setTipo(tag);
 			}
 			
 			//En caso de ser un saludo
 			if(tag == "Saludo"){
-				//Se añade el tag a la palabra
-				listaPalabras.get(iterador).setTipo(tag);
 				//Se llama a la funcion encargada de saludar al usuario
 				saludarUsuario(chatId);
 			}
+			
 			//En caso de ser una despedida
 			else if(tag == "Bye"){
-				//Se añade el tag a la palabra
-				listaPalabras.get(iterador).setTipo(tag);
 				//Se llama a la funcion encargada de despedirse del usuario
 				despedidaUsuario(chatId);
 			}
 		}
+		
 		//Se introducen en el agente la lista de palabras con su tag
 		parametros[1] = listaPalabras;
 		myAgent.setArguments(parametros);

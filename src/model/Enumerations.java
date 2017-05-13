@@ -4,7 +4,6 @@ public class Enumerations
 {
 	public enum EtypeMessage
 	{
-		NINGUNO,
 		SALUDO,
 		DESPEDIDA,
 		DEPORTE,

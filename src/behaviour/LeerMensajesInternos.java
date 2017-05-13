@@ -3,6 +3,8 @@ package behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
+import model.SerializableObject;
 import utiles.LlamarReglas;
 import control.Telegram;
 import control.Main;
@@ -25,7 +27,13 @@ public class LeerMensajesInternos extends CyclicBehaviour{
 		if (msg != null) {
 			//Se ha recibido un mensaje de tipo informacion
 			//Se analiza el contenido
-			String mensaje = msg.getContent();
+			SerializableObject mensaje = null;
+			try {
+				mensaje = (SerializableObject)msg.getContentObject();
+			} catch (UnreadableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			//Se guarda como parametro del agente el mensaje recibido
 			Object[] parametros = new Object[1];

@@ -23,10 +23,10 @@ public class AgenteIdentificador extends Agent {
 		addBehaviour(new Saludo());
 		
 		//Se añade el comportamiento para busque agentes
-		BuscarAgentes buscarAgentes = new BuscarAgentes(this,10);
+		BuscarAgentes buscarAgentes = new BuscarAgentes(this,10000);
 		addBehaviour(buscarAgentes);
 		
-		addBehaviour(new LeerMensajesInternos());
+		addBehaviour(new LeerMensajeTelegram());
 			  	
 	}
 
