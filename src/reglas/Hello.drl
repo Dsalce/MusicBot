@@ -1,29 +1,91 @@
 //created on: 06-may-2017
 package reglas
 import model.Message
+import model.TypeMessage
+import model.Enumerations.EtypeMessage
+import utiles.KeyWords
 
-rule "GOOD MORNING"
+
+rule "Saludo"
+
+   
     when
-        m : Message( message == "GOOD MORNING", myMessage : message )
+        m : Message( utiles.KeyWords.saludo contains message  , myMessage : message )
     then
-        m.setTagMessage( "Saludo" );
-        //update( m );
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Saludo");
+       type.setIdTypeMessage(EtypeMessage.SALUDO.ordinal()); 
+        m.setTypeMessage(type);
+        
 end
 
 
-rule "HELLO"
+rule "Despedida"
+
+   
     when
-        m : Message( message == "HELLO", myMessage : message )
+        m : Message( utiles.KeyWords.despedida contains message  , myMessage : message )
     then
-        m.setTagMessage( "Saludo" );
-        //update( m );
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Despedida");
+       type.setIdTypeMessage(EtypeMessage.DESPEDIDA.ordinal()); 
+        m.setTypeMessage(type);
+        
 end
 
+rule "Deporte"
 
-rule "HI"
+   
     when
-        m : Message( message == "HI", myMessage : message )
+        m : Message( utiles.KeyWords.deporte contains message  , myMessage : message )
     then
-        System.out.println( myMessage );
-        m.setTagMessage("Saludo");
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Deporte");
+       type.setIdTypeMessage(EtypeMessage.DEPORTE.ordinal()); 
+        m.setTypeMessage(type);
+        
+end
+rule "Familia"
+
+   
+    when
+        m : Message( utiles.KeyWords.familia contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Familia");
+       type.setIdTypeMessage(EtypeMessage.FAMILIA.ordinal()); 
+        m.setTypeMessage(type);
+        
+end
+
+rule "Tiempo"
+
+   
+    when
+        m : Message( utiles.KeyWords.tiempo contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Tiempo");
+       type.setIdTypeMessage(EtypeMessage.TIEMPO.ordinal()); 
+        m.setTypeMessage(type);
+        
+end
+
+rule "Trabajo"
+
+   
+    when
+        m : Message( utiles.KeyWords.trabajo contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Trabajo");
+       type.setIdTypeMessage(EtypeMessage.TRABAJO.ordinal()); 
+        m.setTypeMessage(type);
+        
 end

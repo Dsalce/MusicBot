@@ -1,4 +1,7 @@
-/utiles/
-/control/
+/agentes/
 /behaviour/
-/reglas/
+/bussines/
+/control/
+/dataAccess/
+/model/
+/utiles/
