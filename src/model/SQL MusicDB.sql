@@ -24,15 +24,22 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `messages`
---
-
-CREATE TABLE `messages` (
-  `IdMessage` int(11) NOT NULL,
-  `Message` text NOT NULL,
-  `IdTypeMessage` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------
+-- Table `musicdb`.`messages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `messages` (
+  `IdMessage` INT(11) NOT NULL AUTO_INCREMENT,
+  `Message` TEXT NOT NULL,
+  `IdTypeMessage` INT(11) NOT NULL,
+  PRIMARY KEY (`IdMessage`),
+  INDEX `IdTypeMessage_idx` (`IdTypeMessage` ASC),
+  CONSTRAINT `IdTypeMessage`
+    FOREIGN KEY (`IdTypeMessage`)
+    REFERENCES `musicdb`.`type_message` (`IdTypeMessage`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 --
 -- Volcado de datos para la tabla `messages`
@@ -87,7 +94,7 @@ INSERT INTO `messages` (`IdMessage`, `Message`, `IdTypeMessage`) VALUES
 -- Estructura de tabla para la tabla `musics`
 --
 
-CREATE TABLE `musics` (
+CREATE TABLE IF NOT EXISTS `musics` (
   `IdMusic` int(11) NOT NULL,
   `Name` varchar(250) NOT NULL,
   `URL` varchar(250) NOT NULL,
@@ -100,37 +107,24 @@ CREATE TABLE `musics` (
 -- Estructura de tabla para la tabla `states`
 --
 
-CREATE TABLE `states` (
+CREATE TABLE IF NOT EXISTS `states` (
   `idState` int(11) NOT NULL,
   `State` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `type_message`
---
+-- -----------------------------------------------------
+-- Table `musicdb`.`type_message`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `musicdb`.`type_message` (
+  `IdTypeMessage` INT(11) NOT NULL AUTO_INCREMENT,
+  `TypeMessage` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IdTypeMessage`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE `type_message` (
-  `IdTypeMessage` int(11) NOT NULL,
-  `TypeMessage` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `type_message`
---
-
-INSERT INTO `type_message` (`IdTypeMessage`, `TypeMessage`) VALUES
-(0, 'Saludo'),
-(1, 'Despedida'),
-(2, 'Deporte'),
-(3, 'Trabajo'),
-(4, 'Familia'),
-(5, 'Tiempo'),
-(6, 'Person'),
-(7, 'General'),
-(8, 'Musica'),
-(9, 'Error');
 
 -- --------------------------------------------------------
 
@@ -138,7 +132,7 @@ INSERT INTO `type_message` (`IdTypeMessage`, `TypeMessage`) VALUES
 -- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `chatId` int(11) NOT NULL,
   `state` varchar(256) NOT NULL,
   `password` varchar(10) DEFAULT NULL,
@@ -151,7 +145,7 @@ CREATE TABLE `users` (
 -- Estructura de tabla para la tabla `user_music`
 --
 
-CREATE TABLE `user_music` (
+CREATE TABLE IF NOT EXISTS `user_music` (
   `Id` int(11) NOT NULL,
   `Correct` bit(1) NOT NULL,
   `chatId` int(11) NOT NULL,

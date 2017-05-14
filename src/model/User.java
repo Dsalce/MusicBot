@@ -22,6 +22,10 @@ public class User implements Serializable {
 		this.admin = admin;
 		
 	}
+	
+	public User(){
+		
+	}
 
 	@Id
 	private int chatId;

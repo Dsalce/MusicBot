@@ -2,6 +2,7 @@ package behaviour;
 
 import bussines.Manager;
 import jade.core.behaviours.OneShotBehaviour;
+import model.SerializableObject;
 import model.User;
 
 public class InsertarUsuarioBBDD extends OneShotBehaviour{
@@ -17,24 +18,43 @@ public class InsertarUsuarioBBDD extends OneShotBehaviour{
 		Object[] parametros;
 		parametros = myAgent.getArguments();
 		
-		String mensaje = (String)parametros[0];
-		
-		//Se pasan los argumentos separados por ,
-		String[] arrayParametros = mensaje.split(",");
+		SerializableObject mensaje = (SerializableObject)parametros[0];
 		
 		//Se procede a enviar el mensaje de respuesta al usuario 
 		//Posicion 0 esta el chatId que es el que nos interesa almacenar
-		int chatID = Integer.parseInt(arrayParametros[1]);
+		int chatID = Integer.parseInt(mensaje.getChatId());
+				
+		User usuario_bbdd = myManager.Users().FindById(chatID);
 		
-		//Comprobamos si el usuario esta registrado en la BBDD
-		User usuario = new User(chatID,"","",false);
-		myManager.Users().Add(usuario);
+		/**
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * actualizar usuario en la bbdd si existe
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		//Si existe el usuario no lo introducimos en la bbdd
+		if(usuario_bbdd == null){
+			//Se introduce al usuario en la bbdd
+			User usuario = new User(chatID,"","",false);
+			myManager.Users().Add(usuario);
+		}
 		
 		//Se analiza el mensaje dependiendo del tipo de agente que esta analizando
 		if(myAgent.getName().contains("Usuario")){
 			
 			//Se lanza el comportamiento analisis del mensaje del usuario
-			AnalisisMensaje analisis = new AnalisisMensaje();
+			AnalisisUsuario analisis = new AnalisisUsuario();
 			myAgent.addBehaviour(analisis);
 			
 		}else if(myAgent.getLocalName().contains("Administrador")){

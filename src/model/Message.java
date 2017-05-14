@@ -13,16 +13,6 @@ import javax.persistence.*;
 @NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private String TagMessage;
-	
-	public String getTagMessage() {
-		return TagMessage;
-	}
-
-	public void setTagMessage(String tag) {
-		this.TagMessage = tag;
-	}
 
 	@Id
 	private int idMessage;
@@ -61,4 +51,5 @@ public class Message implements Serializable {
 	public void setTypeMessage(TypeMessage typeMessage) {
 		this.typeMessage = typeMessage;
 	}
+
 }

@@ -62,7 +62,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 			//Caso de ser usuario
 			case 1:
 				//Se cogen los agente disponibles que se encuentra dentro de los argumentos
-				if(parametros[0] != null){
+				if(parametros != null){
 					listaAgentes = (List<AID>)parametros[0];
 				}
 				
@@ -97,7 +97,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 			case 2:
 				//Enviar el mensaje al administrador
 				//Se cogen los agente disponibles que se encuentra dentro de los argumentos
-				if(parametros[0] != null){
+				if(parametros != null){
 					listaAgentes = (List<AID>)parametros[0];
 				}
 				

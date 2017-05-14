@@ -26,7 +26,7 @@ public class UserMusic implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="IdUser")
+	@JoinColumn(name="chatId")
 	private User user;
 
 	public UserMusic() {
