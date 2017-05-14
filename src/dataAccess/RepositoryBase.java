@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.NamedQuery;
 
 public class RepositoryBase<T> {
 
@@ -20,7 +19,7 @@ public class RepositoryBase<T> {
 	
 	public RepositoryBase(Class<T> _Type)
 	{
-		Context = Persistence.createEntityManagerFactory("MusicBot");
+		Context = Persistence.createEntityManagerFactory("DataAccess");
 		Manager = Context.createEntityManager();
 		Type = _Type;
 		
@@ -38,26 +37,6 @@ public class RepositoryBase<T> {
 		Manager.getTransaction().begin();
 		
 		List<T> result = Manager.createQuery(Query, Type).getResultList();
-		
-		Manager.getTransaction().commit();
-		
-		return result;
-	}
-	
-	/**
-	 * Se realiza un búsqueda de entidades según su propiedad referencial
-	 * @param nav nombre de la propiedad de navegación
-	 * @param field campo de la propiedad de navegación
-	 * @param value valor a buscar
-	 * @return
-	 */
-	public List<T> FindNav(String nav, String field, Object value)
-	{
-		Manager.getTransaction().begin();
-		
-		TypedQuery<T> query = Manager.createQuery("SELECT c FROM " + Type.getSimpleName() + " c JOIN c." + nav + " a WHERE a." + field + " = " + value, Type);
-		
-		List<T> result = query.getResultList();
 		
 		Manager.getTransaction().commit();
 		

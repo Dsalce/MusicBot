@@ -106,10 +106,10 @@ public class AnalisisMensaje extends OneShotBehaviour{
 		
 		if(usuario.getState() ==  "Saludo"){
 			//Se consulta el mensaje de saludo para el usuario
-			TypeMessage saludos = myManager.TypeMessages().FindById(EtypeMessage.SALUDO.ordinal());
+			TypeMessage saludos = myManager.TypeMessage().FindById(EtypeMessage.SALUDO.ordinal());
 			List<Message> mensajesSaludos = saludos.getMessages();
 			int random = 0 + (int)(Math.random() * ((mensajesSaludos.size() - 0) + 1));
-			mensajeRespuesta.enviar(Integer.toString(usuario.getIdUser()), mensajesSaludos.get(random).getMessage());
+			mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()), mensajesSaludos.get(random).getMessage());
 		}else{
 			
 		}
@@ -121,10 +121,10 @@ public class AnalisisMensaje extends OneShotBehaviour{
 		User usuario = myManager.Users().FindById(Integer.parseInt(chatId));
 		
 		//Se consulta el mensaje de saludo para el usuario
-		TypeMessage saludos = myManager.TypeMessages().FindById(EtypeMessage.DESPEDIDA.ordinal());
+		TypeMessage saludos = myManager.TypeMessage().FindById(EtypeMessage.DESPEDIDA.ordinal());
 		List<Message> mensajesSaludos = saludos.getMessages();
 		int random = 0 + (int)(Math.random() * ((mensajesSaludos.size() - 0) + 1));
-		mensajeRespuesta.enviar(Integer.toString(usuario.getIdUser()), mensajesSaludos.get(random).getMessage());
+		mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()), mensajesSaludos.get(random).getMessage());
 	}
 
 }

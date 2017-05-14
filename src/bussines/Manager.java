@@ -1,15 +1,20 @@
 package bussines;
 
 import dataAccess.RepositoryBase;
+import model.Message;
 import model.Music;
-import model.State;
 import model.User;
 import model.UserMusic;
-import model.Message;
+import model.State;
 import model.TypeMessage;
 
-public class Manager 
-{
+/**
+ * 
+ * @author 
+ *
+ */
+public class Manager {
+	
 	/**
 	 * Manejo de las entidades Musics
 	 */
@@ -23,17 +28,17 @@ public class Manager
 	 */
 	private RepositoryBase<UserMusic> OfUserMusics;
 	/**
+	 * Manejo de las entidades Message
+	 */	
+	private RepositoryBase<Message> ofMessage;
+	/**
+	 * Manejo de las entidades Message
+	 */	
+	private RepositoryBase<TypeMessage> ofTypeMessages;
+	/**
 	 * Manejo de las entidades States
-	 */
+	 */	
 	private RepositoryBase<State> OfStates;
-	/**
-	 * Manejo de las entidades States
-	 */
-	private RepositoryBase<TypeMessage> OfTypeMessage;
-	/**
-	 * Manejo de las entidades States
-	 */
-	private RepositoryBase<Message> OfMessage;
 	
 	public Manager()
 	{
@@ -41,8 +46,8 @@ public class Manager
 		OfUseres = new RepositoryBase<User>(User.class);
 		OfUserMusics = new RepositoryBase<UserMusic>(UserMusic.class);
 		OfStates = new RepositoryBase<State>(State.class);
-		OfTypeMessage = new RepositoryBase<>(TypeMessage.class);
-		OfMessage = new RepositoryBase<>(Message.class);
+		ofMessage = new RepositoryBase<Message>(Message.class);
+		ofTypeMessages =new RepositoryBase<TypeMessage>(TypeMessage.class);
 	}
 	
 	public RepositoryBase<Music> Musics()
@@ -65,14 +70,9 @@ public class Manager
 		return OfStates;
 	}
 	
-	public RepositoryBase<TypeMessage> TypeMessages()
+	public RepositoryBase<TypeMessage> TypeMessage()
 	{
-		return OfTypeMessage;
-	}
-	
-	public RepositoryBase<Message> Messages()
-	{
-		return OfMessage;
+		return ofTypeMessages;
 	}
 	
 	public void Dispose()
@@ -81,7 +81,5 @@ public class Manager
 		OfUseres.Dispose();
 		OfStates.Dispose();
 		OfUserMusics.Dispose();
-		OfTypeMessage.Dispose();
-		OfMessage.Dispose();
 	}
 }

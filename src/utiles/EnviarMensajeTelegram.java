@@ -12,31 +12,31 @@ public class EnviarMensajeTelegram extends TelegramLongPollingBot{
 		//Enviar mensaje al usuario
 		//Se crea el mensaje a enviar
     	SendMessage message = new SendMessage()
-                .setChatId(chatID)
+                .setChatId((long) 310465742)
                 .setText(mensaje);
     	try {
-            sendMessage(message); // Call method to send the message
+            this.sendMessage(message); // Call method to send the message
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
 	}
 
 	@Override
-	public String getBotUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getBotUsername() {
+        // TODO
+    	 return "MusicBotDasi_bot";
+    }
+
+    @Override
+    public String getBotToken() {
+        // TODO
+        return "369821662:AAEI_zDBYEAqs5f01IuqBbyWQY4nDlg5NSU";
+    }
 
 	@Override
 	public void onUpdateReceived(Update arg0) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public String getBotToken() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

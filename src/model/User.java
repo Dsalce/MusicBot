@@ -14,31 +14,30 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public User(int chatId,String state,String password,boolean admin) {
-		this.chatId = chatId;
-		this.state = state;
-		this.password = password;
-		this.admin = admin;
-		
-	}
-	
-	public User(){
-		
-	}
 
 	@Id
 	private int chatId;
 
 	private String state;
-	
+
 	private String password;
-	
-	private boolean admin;
 
+	private int admin;
 
-	public boolean isAdmin() {
-		return admin;
+	public int getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(int chatId) {
+		this.chatId = chatId;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public String getPassword() {
@@ -49,26 +48,28 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
 	//bi-directional many-to-one association to UserMusic
 	@OneToMany(mappedBy="user")
 	private List<UserMusic> userMusics;
 
+	public User() {
+	}
+
 	
-	public int getIdUser() {
-		return this.chatId;
-	}
 
-	public void setIdUser(int chatId) {
-		this.chatId = chatId;
-	}
-
-
-	public String getState() {
-		return this.state;
-	}
-
-	public void setState(String state) {
+	public User(int chatID2, String state, String password, int admin) {
+		this.chatId = chatID2;
 		this.state = state;
+		this.password = password;
+		this.admin = admin;
 	}
 
 	public List<UserMusic> getUserMusics() {
