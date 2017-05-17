@@ -21,9 +21,53 @@ public class User implements Serializable {
 	private String state;
 
 	private String password;
-
+	
+	private String lastMessage;
+	
 	private int admin;
+	
+	private int SentimientoNegativo;
+	
+	private int SentimientoPositivo;
+	
+	private int sentimientoNeutral;
+	
+	public int getSentimientoNeutral() {
+		return sentimientoNeutral;
+	}
 
+	public void setSentimientoNeutral(int sentimientoNeutral) {
+		sentimientoNeutral = sentimientoNeutral;
+	}
+
+	public String getLastMessage() {
+		return lastMessage;
+	}
+
+	public void setLastMessage(String lastMessage) {
+		this.lastMessage = lastMessage;
+	}
+
+	public User(){
+		
+	}
+
+	public int getSentimientoNegativo() {
+		return SentimientoNegativo;
+	}
+
+	public void setSentimientoNegativo(int sentimientoNegativo) {
+		SentimientoNegativo = sentimientoNegativo;
+	}
+
+	public int getSentimientoPositivo() {
+		return SentimientoPositivo;
+	}
+
+	public void setSentimientoPositivo(int sentimientoPositivo) {
+		SentimientoPositivo = sentimientoPositivo;
+	}
+	
 	public int getChatId() {
 		return chatId;
 	}
@@ -60,16 +104,17 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<UserMusic> userMusics;
 
-	public User() {
-	}
 
-	
 
-	public User(int chatID2, String state, String password, int admin) {
+	public User(int chatID2, String state, String password, int admin,int SentimientoNegativo, int SentimientoPositivo,String lastMessage, int sentimientoNeutral) {
 		this.chatId = chatID2;
 		this.state = state;
 		this.password = password;
 		this.admin = admin;
+		this.SentimientoNegativo = SentimientoNegativo;
+		this.SentimientoPositivo = SentimientoPositivo;
+		this.lastMessage = lastMessage;
+		this.sentimientoNeutral = sentimientoNeutral;
 	}
 
 	public List<UserMusic> getUserMusics() {

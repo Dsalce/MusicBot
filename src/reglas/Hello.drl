@@ -89,3 +89,16 @@ rule "Trabajo"
         m.setTypeMessage(type);
         
 end
+
+
+rule "Gusto"
+
+    when
+        m : Message( utiles.KeyWords.gustos contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Gusto");
+        m.setTypeMessage(type);
+        
+end

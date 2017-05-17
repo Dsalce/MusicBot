@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.NamedQuery;
+import javax.persistence.Query;
+import model.Message;
+import model.Music;
 
 public class RepositoryBase<T> {
 
@@ -58,6 +61,38 @@ public class RepositoryBase<T> {
 		
 		return result;
 	}
+	/*
+	/**
+	 * Busca una entidad por su identificador
+	 * @param Id
+	 * @return
+	 */
+	
+	public List<String> findByNivel(int TypeMessage, int nivel)
+	{
+		
+		Manager.getTransaction().begin();
+				
+		Query query = Manager.createNativeQuery(" SELECT `Message` FROM  `messages` WHERE `IdTypeMessage` = '" + TypeMessage +"' AND `Nivel` = '" + nivel + "'");
+		
+		Manager.getTransaction().commit();
+		
+		return (List<String>)query.getResultList( );
+	}
+	
+	public List<Music> findByGusto(int gusto)
+	{
+		
+		Manager.getTransaction().begin();
+				
+		Query query = Manager.createNativeQuery(" SELECT `musics`.`IdMusic`, `musics`.`Name`,`musics`.`URL`,`musics`.`IdState` FROM `user_music`, `musics` WHERE `user_music`.`IdMusic` = `musics`.`IdMusic` AND `Correct` = " + gusto);
+		
+		Manager.getTransaction().commit();
+		
+		return (List<Music>)query.getResultList();
+	}
+	
+	
 	
 	/**
 	 * Actualiza una entidad con identificador Id en base a updEntity 

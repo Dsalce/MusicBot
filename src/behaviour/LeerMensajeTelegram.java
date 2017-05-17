@@ -78,7 +78,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 						if((chatID != null) && (texto != null)){
 							try {
 								//Creamos objeto serializable 
-								SerializableObject object = new SerializableObject(chatID,listaPalabras);
+								SerializableObject object = new SerializableObject(chatID,listaPalabras,texto);
 								msg.setContentObject(object);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
@@ -113,7 +113,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 						if((chatID != null) && (texto != null)){
 							try {
 								//Creamos objeto serializable 
-								SerializableObject object = new SerializableObject(chatID,listaPalabras);
+								SerializableObject object = new SerializableObject(chatID,listaPalabras,texto);
 								msg.setContentObject(object);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
@@ -143,13 +143,15 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
 			palabra = listaPalabras.get(iterador);
-			tag = palabra.getTag();
-			if(tag == ""){
-				//Se analiza la palabra mediante drools para intentar identificar su tag
-				tag = analizarPorReglas(palabra);
+			
+			//Se analiza la palabra mediante drools para intentar identificar su tag
+			tag = analizarPorReglas(palabra);
+			
+			if(!tag.equals("")){
 				//Se actualiza el tag de la palabra
-				listaPalabras.get(iterador).setTipo(tag);
+				listaPalabras.get(iterador).getTag().add(tag);
 			}
+				
 		}
 
 		//En caso de ser un saludo

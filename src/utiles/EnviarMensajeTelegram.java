@@ -12,7 +12,7 @@ public class EnviarMensajeTelegram extends TelegramLongPollingBot{
 		//Enviar mensaje al usuario
 		//Se crea el mensaje a enviar
     	SendMessage message = new SendMessage()
-                .setChatId((long) 310465742)
+                .setChatId(chatID)
                 .setText(mensaje);
     	try {
             this.sendMessage(message); // Call method to send the message

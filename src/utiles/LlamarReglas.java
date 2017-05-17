@@ -27,7 +27,11 @@ public class LlamarReglas {
         } catch (Throwable t) {
             t.printStackTrace();
         }
-		return message.getTypeMessage().getTypeMessage();
+		if(message.getTypeMessage() != null){
+			return message.getTypeMessage().getTypeMessage();
+		}else{
+			return "";
+		}
 	}
 	
 	

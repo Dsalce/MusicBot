@@ -42,6 +42,7 @@ public class KeyWords {
 		add("TENNIS");
 		add("TEAM");
 		add("EXERCISES");
+		add("PLAY");
 		
 	}};
 	
@@ -170,7 +171,22 @@ public class KeyWords {
 	    add("BOILING");
 	    add("WINDY");
 	    add("COAT");
-	    
-	    
 	}};
+	
+	
+	public static ArrayList<String> gustos=new ArrayList<String>() {
+		 
+		private static final long serialVersionUID = 1L;
+	{
+		add("YES");
+        add("LIKE");
+        add("LOVE");
+        add("APPROVE");
+        add("PREFER");
+        add("ENJOY");
+        add("COTTON");
+        add("DESIRE");
+        add("WANT");
+	}};
+
 }

@@ -1,16 +1,20 @@
 package utiles;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Lexico implements Serializable {
     private String word;
     private String tipo;
-    private String tag;
+    private List<String> tag = new ArrayList<String>();
     
 	public Lexico (String word,String pos,String ner){
 		this.word=word;
 		this.tipo=pos;
-		this.tag=ner;
+		if(!ner.equals("")){
+			this.tag.add(ner);
+		}
 	}
 	public String getWord(){
 		return this.word;
@@ -21,8 +25,14 @@ public class Lexico implements Serializable {
 	public void setTipo(String tipo){
 		this.tipo = tipo;
 	}
-	public String getTag(){
+	public List<String> getTag(){
 	    return this.tag;
+	}	
+	
+	public void setTag(String tag){
+		if(!tag.equals("")){
+			this.tag.add(tag);
+		}
 	}	
 	
 	

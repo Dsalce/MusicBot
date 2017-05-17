@@ -5,15 +5,30 @@ import java.util.List;
 import utiles.Lexico;
 
 public class SerializableObject implements Serializable{
-	
+
+	private static final long serialVersionUID = 1L;
+
 	private String chatId;
 	
 	private List<Lexico> lista;
+
+	private String texto;
 	
 	
-	public SerializableObject(String chatId,List<Lexico> lista){
+	public SerializableObject(String chatId,List<Lexico> lista, String texto){
 		this.chatId = chatId;
 		this.lista = lista;
+		this.texto = texto;
+	}
+
+
+	public String getTexto() {
+		return texto;
+	}
+
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 

@@ -14,10 +14,7 @@ import javax.persistence.*;
 public class UserMusic implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private int id;
-
-	private byte correct;
+	private int correct;
 
 	//bi-directional many-to-one association to Music
 	@ManyToOne
@@ -25,6 +22,7 @@ public class UserMusic implements Serializable {
 	private Music music;
 
 	//bi-directional many-to-one association to User
+	@Id
 	@ManyToOne
 	@JoinColumn(name="chatId")
 	private User user;
@@ -32,20 +30,12 @@ public class UserMusic implements Serializable {
 	public UserMusic() {
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public byte getCorrect() {
+	public int getCorrect() {
 		return this.correct;
 	}
 
-	public void setCorrect(byte correct) {
-		this.correct = correct;
+	public void setCorrect(int i) {
+		this.correct = i;
 	}
 
 	public Music getMusic() {

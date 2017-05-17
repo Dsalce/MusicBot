@@ -79,61 +79,36 @@ public class StanfordNPL {
     	      //  String ln= token.get(LemmaAnnotation.class);
 
        	        System.out.println("word: " + word + " pos: " + pos + " ne:" + ne );
-       	 
-       	       
-       	        
-       	 }
-       	
-          
-           
-          
-           
-           
+       	     
+       	 }    
       }
        return lex;
 }
 		
-	public static void sentiment(String text){
+	public static String sentiment(String text){
 
 		String sentiment="" ;
-		String text1="salcedo";
 		try {
-			 text1 = utiles.Translator.callUrlAndParseResult("es", "en", text1);
+			text = utiles.Translator.callUrlAndParseResult("es", "en", text);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
        Properties props = new Properties();
-       props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse,ner");//,ner,regexner, sentiment");
-       props.setProperty("ner.useSUTime", "0");
-       props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");//,ner,regexner, sentiment");
-       //props.put("regexner.mapping", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\sutime\\english.sutime.txt");
-       //props.put("regexner.mapping", "D:\\DasiGit\\stanford-corenlp-full-2016-10-31\\sutime\\english.sutime.txt");
-
-       CustomLemmaAnnotator prueba  =new CustomLemmaAnnotator("prueba",props);
-       //C:\Users\dsalc\git\MusicBot
-      
+       props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");      
        
        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
        
-       Annotation annotation = pipeline.process(text1);
+       Annotation annotation = pipeline.process(text);
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
-       	
           sentiment = sentence.get(SentimentCoreAnnotations.SentimentClass.class);
-            
-           System.out.println(sentiment+ "\t" + "\t" + sentence);
-           
-           String[] sentimentText = { "Very Negative","Negative", "Neutral", "Positive", "Very Positive"};
-           for (CoreMap sentence1 : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-            Tree tree1 = sentence1.get(SentimentAnnotatedTree.class);
-            int score = RNNCoreAnnotations.getPredictedClass(tree1);
-            System.out.println(sentimentText[score]);
-           }
        }
+       return sentiment;
+   }
+	
 }
 	
 	
-}
