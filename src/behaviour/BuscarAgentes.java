@@ -95,7 +95,7 @@ public class BuscarAgentes extends TickerBehaviour{
 			
 			
 	  		if (resultados.length > 0) {
-	  			System.out.println("El agente "+myAgent.getLocalName()+" encontró los siguientes agentes de tipo "+tipoServicio+":");
+	  			//System.out.println("El agente "+myAgent.getLocalName()+" encontró los siguientes agentes de tipo "+tipoServicio+":");
 	  			for (int i = 0; i < resultados.length; ++i) {
 	  				DFAgentDescription dfd = resultados[i];
 	  				AID provider = dfd.getName();
@@ -105,7 +105,7 @@ public class BuscarAgentes extends TickerBehaviour{
 	  				while (it.hasNext()) {
 	  					ServiceDescription sd = (ServiceDescription) it.next();
 	  					if (sd.getType().equals(tipoServicio)) {
-	  						System.out.println(provider.getName());
+	  						//System.out.println(provider.getName());
 	  					}
 	  				}
 	  			}

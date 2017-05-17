@@ -14,11 +14,13 @@ public class Enumerations
 		PERSON,
 		GENERAL,
 		MUSICA,
-		ERROR
+		ERROR,
+		AFIRMATIVO
 	}
 	
 	public enum EState
 	{
+		NINGUNO,
 		ALEGRE,
 		TRISTE
 	}

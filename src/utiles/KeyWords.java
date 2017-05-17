@@ -109,7 +109,7 @@ public class KeyWords {
 	    add("VOCATION");
 	    add("POSITION");
 	    add("BOSS");
-	    add("PARTNER");
+	    add("COMPANION");
 	    add("CENTER");
 	    add("WORK");
 	    add("MANAGER");
@@ -179,7 +179,7 @@ public class KeyWords {
 	}};
 	
 	
-	public static ArrayList<String> gustos=new ArrayList<String>() {
+	public static ArrayList<String> afirmativo=new ArrayList<String>() {
 		 
 		private static final long serialVersionUID = 1L;
 	{

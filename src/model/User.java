@@ -37,7 +37,7 @@ public class User implements Serializable {
 	}
 
 	public void setSentimientoNeutral(int sentimientoNeutral) {
-		sentimientoNeutral = sentimientoNeutral;
+		this.sentimientoNeutral = sentimientoNeutral;
 	}
 
 	public String getLastMessage() {

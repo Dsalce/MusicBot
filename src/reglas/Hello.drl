@@ -94,11 +94,11 @@ end
 rule "Gusto"
 
     when
-        m : Message( utiles.KeyWords.gustos contains message  , myMessage : message )
+        m : Message( utiles.KeyWords.afirmativo contains message  , myMessage : message )
     then
        
        TypeMessage  type =new TypeMessage();
-       type.setTypeMessage("Gusto");
+       type.setTypeMessage("Afirmativo");
         m.setTypeMessage(type);
         
 end

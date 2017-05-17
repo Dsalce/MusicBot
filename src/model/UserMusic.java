@@ -29,6 +29,12 @@ public class UserMusic implements Serializable {
 
 	public UserMusic() {
 	}
+	
+	public UserMusic (int correct,Music music, User user){
+		this.correct = correct;
+		this.music = music;
+		this.user = user;
+	}
 
 	public int getCorrect() {
 		return this.correct;

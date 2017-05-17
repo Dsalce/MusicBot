@@ -23,6 +23,9 @@ public class Main {
 	public static Telegram telegram;
 
 	public static void main(String args[]) {
+		//Se cargan los modulo de stanfor
+		StanfordNPL.loadModules();
+		
 		Manager myManager = new Manager();
 				
 		ApiContextInitializer.init();

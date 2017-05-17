@@ -35,8 +35,27 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class StanfordNPL {
 
+	private static  StanfordCoreNLP pipeline_word;
+	private static  StanfordCoreNLP pipeline_sent;
+	
+	public static void  loadModules(){
+		Properties props;
+		Properties propsSent;
 
-	public  List<Lexico> parser(String text){
+	    props = new Properties();
+	    props.setProperty("annotators", "tokenize, ssplit, pos, lemma,ner");//,ner,regexner, sentiment");
+	    props.setProperty("ner.useSUTime", "0");
+	   
+	    propsSent= new Properties();
+	    propsSent.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+	    
+	    
+	    
+	    pipeline_word = new StanfordCoreNLP(props);
+	    pipeline_sent = new StanfordCoreNLP(propsSent);
+	}
+
+	public static List<Lexico> parser(String text){
 	   List<Lexico> lex=new ArrayList<Lexico>();
 		
 		
@@ -48,25 +67,17 @@ public class StanfordNPL {
 			e.printStackTrace();
 		}
 	    
-       Properties props = new Properties();
-       props.setProperty("annotators", "tokenize, ssplit, pos, lemma,ner");//,ner,regexner, sentiment");
-       props.setProperty("ner.useSUTime", "0");
-    // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and coreference resolution 
-
-       StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
        
-      
-       Annotation annotation = pipeline.process(text);
        
+       Annotation annotation = pipeline_word.process(text);
     
-       
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
        	
        	 for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
        	        // this is the text of the token
        	        
-       	        String word=token.get(TextAnnotation.class).toUpperCase();
+       	        String word=token.get(LemmaAnnotation.class).toUpperCase();
        	        // this is the POS tag of the token
        	        String pos = token.get(PartOfSpeechAnnotation.class);
        	        // this is the NER label of the token
@@ -95,12 +106,7 @@ public class StanfordNPL {
 			e.printStackTrace();
 		}
 	    
-       Properties props = new Properties();
-       props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");      
-       
-       StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-       
-       Annotation annotation = pipeline.process(text);
+       Annotation annotation = pipeline_sent.process(text);
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {

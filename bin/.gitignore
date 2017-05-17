@@ -1,7 +1,9 @@
-/agentes/
 /behaviour/
-/bussines/
-/control/
-/dataAccess/
 /model/
 /utiles/
+/META-INF/
+/bussines/
+/control/
+/agentes/
+/dataAccess/
+/reglas/

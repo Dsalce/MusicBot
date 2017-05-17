@@ -50,6 +50,11 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		
 		List<String> lista_tag = null;
 		
+		//Se analiza el sentimiento de la frase introducidda por el usuario
+		if(analizarSentimiento(chatId,StanfordNPL.sentiment(objetoSerializable.getTexto()))){
+			return;
+		}
+		
 		//Se recorre 
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
@@ -111,14 +116,9 @@ public class AnalisisUsuario extends OneShotBehaviour{
 				despedidaUsuario(chatId);
 			}
 		}
-		
-		//Se analiza el sentimiento de la frase introducidda por el usuario
-		analizarSentimiento(chatId,StanfordNPL.sentiment(objetoSerializable.getTexto()));
-		;
-		
 	}
 	
-	private void analizarSentimiento(String chatId,String sentiment) {
+	private boolean analizarSentimiento(String chatId,String sentiment) {
 		State estado;
 		List<Music> canciones;
 		int random_cancion;
@@ -159,29 +159,43 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			//Se mira en la frase introducida por el usuario si ha sido afirmativo o negativo
 			List<Lexico> lista_palabra = objetoSerializable.getLista();
 			for (Lexico palabra : lista_palabra){
-				//Obtener el objeto de la posicion iterador
-				if(palabra.getTag().equals("Afirmativo")){
-					afirmativo = true;
-					break;
+				List<String> lista_tags = palabra.getTag();
+				for(String tag : lista_tags){
+					//Obtener el objeto de la posicion iterador
+					if(tag.equals("Afirmativo")){
+						afirmativo = true;
+						break;
+					}
 				}
+				
 			}
 		
 			//En caso de que el ultimo mensaje se ofrecimiento de mensaje
 			if((usuario.getLastMessage().equals(mensaje_cancion_anterior)) || (usuario.getLastMessage().equals(mensaje_no_cancion_anterior))){
 				List<Music> lista_musica = null;
+				Music cancion_gusto =null;
 				if(afirmativo){
 					if(usuario.getSentimientoPositivo()>1){
 						//Se consulta las canciones escuchadas y ademas que le hayan gustado
 						lista_musica = myManager.Musics().findByGusto(1);
+						if(lista_musica.size()==0){
+							//No ha escuchado una cancion anteriormente, se consultan las canciones positivas
+							State estados_musica = myManager.States().FindById(EState.ALEGRE.ordinal()); 	
+							lista_musica = estados_musica.getMusics();
+						}
 					}else{
 						//Se consulta las canciones escuchadas y ademas que le hayan gustado
 						lista_musica = myManager.Musics().findByGusto(1);
+						if(lista_musica.size()==0){
+							//No ha escuchado una cancion anteriormente, se consultan las canciones positivas
+							State estados_musica = myManager.States().FindById(EState.TRISTE.ordinal()); 	
+							lista_musica = estados_musica.getMusics();
+						}
 					}
 					//Cogemos una cancion que le haya gustado al azar
 					int random_musica = 0 + (int)(Math.random() * ((lista_musica.size()-1 - 0) + 1));
-					Music cancion_gusto = lista_musica.get(random_musica);
-					//Se envia por telegram
-					mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()), mensaje_ofrecer + cancion_gusto.getName() + ": " + cancion_gusto.getUrl() );
+					//Crear objeto musica
+					cancion_gusto = lista_musica.get(random_musica);
 				}else{
 					State lista_positivas = null;
 					//En caso de que el usurio haya escrito mas de una frase positiva 
@@ -195,12 +209,23 @@ public class AnalisisUsuario extends OneShotBehaviour{
 					lista_musica = lista_positivas.getMusics();
 					//Cogemos una cancion que le haya gustado al azar
 					int random_musica = 0 + (int)(Math.random() * ((lista_musica.size()-1 - 0) + 1));
-					Music cancion_gusto = lista_musica.get(random_musica);
-					//Se envia por telegram
-					mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()), mensaje_ofrecer + cancion_gusto.getName() + ": " + cancion_gusto.getUrl() );
+					cancion_gusto = lista_musica.get(random_musica);
+					
 				}
-				musica_usuario.setCorrect(1);
-				myManager.UserMusics().Update(Integer.parseInt(chatId), musica_usuario);
+				//Se envia por telegram
+				mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()), mensaje_ofrecer + cancion_gusto.getName() + ": " + cancion_gusto.getUrl() );
+				mensaje_ofrecer = mensaje_ofrecer + "-" + cancion_gusto.getIdMusic();
+				//Se introduce como neutral la opinion del usuario
+				List<Music> musica = myManager.UserMusics().findByUserMusicChatid(Integer.parseInt(chatId), cancion_gusto.getIdMusic());
+				if(musica.size()!=0){
+					//Tiene la cancion guardada por lo que lo actualizamos
+					musica_usuario.setCorrect(1);
+					myManager.UserMusics().Update(Integer.parseInt(chatId), musica_usuario);
+				}else{
+					//No tiene almacenada la cancion, se inserta
+					musica_usuario = new UserMusic(1,cancion_gusto,usuario);
+					myManager.UserMusics().Add(musica_usuario);			
+				}
 			}else if (usuario.getLastMessage().equals(mensaje_ofrecer)){
 				//Si le ha gustado lo alamacenamos
 				if(afirmativo){
@@ -210,6 +235,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 					//Ofrecer si quiere una cancio escuchada
 					mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),"Lo siento, " + mensaje_cancion_anterior);
 					usuario.setLastMessage(mensaje_cancion_anterior);
+					myManager.Users().Update(Integer.parseInt(chatId), usuario);
 				}
 			}else if((usuario.getLastMessage().equals(recordatorio)) || (usuario.getLastMessage().equals(mensaje_ofrecer))){
 				//Si le ha gustado lo alamacenamos
@@ -225,28 +251,35 @@ public class AnalisisUsuario extends OneShotBehaviour{
 					if(musica_usuario.getMusic()!=null){
 						mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),"Lo siento, " + mensaje_cancion_anterior);
 						usuario.setLastMessage(mensaje_cancion_anterior);
+						myManager.Users().Update(Integer.parseInt(chatId), usuario);
 					}else{
 						//No tiene guardado ninguna cancion anteriormente escuchada
 						mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),"Lo siento, " + mensaje_no_cancion_anterior);
 						usuario.setLastMessage(mensaje_no_cancion_anterior);
+						myManager.Users().Update(Integer.parseInt(chatId), usuario);
 					}
 					
 				}
-			}else if(musica_usuario.getMusic()!=null){
+			}else if(musica_usuario!=null){
 				//Ofrecer si quiere una cancio escuchada
 				mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),mensaje_cancion_anterior);
 				usuario.setLastMessage(mensaje_cancion_anterior);
+				myManager.Users().Update(Integer.parseInt(chatId), usuario);
 			}else{
 				//No tiene guardado ninguna cancion anteriormente escuchada
 				mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),mensaje_no_cancion_anterior);
 				usuario.setLastMessage(mensaje_no_cancion_anterior);
+				myManager.Users().Update(Integer.parseInt(chatId), usuario);
 			}
+			return true;
 		}
 		
 		if(usuario.getSentimientoNeutral()>10){
 			//No tiene guardado ninguna cancion anteriormente escuchada
 			mensajeRespuesta.enviar(Integer.toString(usuario.getChatId()),"No consigo detectar tu estado de animo, se mas concreto");
+			return true;
 		}
+		return false;
 	}
 
 	private void hablarTemaUsuario(String tema,String chatId) {
@@ -262,6 +295,8 @@ public class AnalisisUsuario extends OneShotBehaviour{
 					//Se consulta una pregunta sobre el tema a tratar con el usuario
 					temas = myManager.TypeMessage().findByNivel(tag.ordinal(), 0);
 					random_tema = 0 + (int)(Math.random() * ((temas.size()-1 - 0) + 1));
+					usuario.setState("Conversacion1");
+					myManager.Users().Update(usuario.getChatId(), usuario);
 				}else if(usuario.getState().contains("1")){
 					//Se consulta una pregunta sobre el tema a tratar con el usuario
 					temas = myManager.TypeMessage().findByNivel(tag.ordinal(), 1);

@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Query;
 import model.Message;
 import model.Music;
+import model.UserMusic;
 
 public class RepositoryBase<T> {
 
@@ -85,12 +86,25 @@ public class RepositoryBase<T> {
 		
 		Manager.getTransaction().begin();
 				
-		Query query = Manager.createNativeQuery(" SELECT `musics`.`IdMusic`, `musics`.`Name`,`musics`.`URL`,`musics`.`IdState` FROM `user_music`, `musics` WHERE `user_music`.`IdMusic` = `musics`.`IdMusic` AND `Correct` = " + gusto);
+		Query query = Manager.createNativeQuery(" SELECT `musics`.`IdMusic`, `musics`.`Name`,`musics`.`URL`,`musics`.`IdState` FROM `user_music`, `musics` WHERE `user_music`.`IdMusic` = `musics`.`IdMusic` AND `Correct` = " + gusto + " AND `Correct` = 1");
 		
 		Manager.getTransaction().commit();
 		
 		return (List<Music>)query.getResultList();
 	}
+	
+	public List<Music> findByUserMusicChatid(int chatId, int idMusic)
+	{
+		
+		Manager.getTransaction().begin();
+				
+		Query query = Manager.createNativeQuery("SELECT `Correct`, `chatId`, `IdMusic` FROM `user_music` WHERE `chatId` = " + chatId + " AND `IdMusic` = " + idMusic);
+		
+		Manager.getTransaction().commit();
+		
+		return (List<Music>)query.getResultList();
+	}
+	
 	
 	
 	
@@ -104,15 +118,15 @@ public class RepositoryBase<T> {
 	{
 		Manager.getTransaction().begin();
 		
-		T entity = Manager.find(Type, Id);
+		//T entity = Manager.find(Type, Id);
 		
 		Manager.detach(updEntity);
 		
-		Manager.merge(entity);
+		Manager.merge(updEntity);
 		
 		Manager.getTransaction().commit();
 		
-		return entity;
+		return updEntity;
 	}
 	
 	/**

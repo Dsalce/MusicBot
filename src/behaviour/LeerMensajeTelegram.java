@@ -32,9 +32,6 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 	//Variable para identificar si es usuario(1) o administrador(2)
 	private int opcion = 0;  
 	
-	//Instancia para Standfor
-	private StanfordNPL standfor = new StanfordNPL();
-	
 	//Instancia para las reglas
 	private LlamarReglas reglas = new LlamarReglas();
 	
@@ -138,7 +135,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 		Lexico palabra = null;
 		String tag = "";
 		//Guarda y analiza la lisa de palabras analizadas
-		listaPalabras = standfor.parser(mensaje);
+		listaPalabras = StanfordNPL.parser(mensaje);
 		//Se recorre 
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
