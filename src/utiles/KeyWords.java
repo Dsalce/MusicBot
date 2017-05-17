@@ -42,7 +42,8 @@ public class KeyWords {
 		add("TENNIS");
 		add("TEAM");
 		add("EXERCISES");
-		
+		add("BATE");
+		add("BALL");
 	}};
 	
 	public static ArrayList<String> familia=new ArrayList<String>() {
@@ -125,6 +126,13 @@ public class KeyWords {
 	    add("ADMINISTRATIVE");
 	    add("SECRETARY");
 	    add("COMPUTER");
+		add("AMUSE");
+		add("OFFICE");
+		add("SPREE");
+		add("DOCTOR");
+		add("HOSPITAL");
+		add("SATISFACTORY");
+		add("AGREE");
 	    
 	}};
 	
