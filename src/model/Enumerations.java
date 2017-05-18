@@ -15,7 +15,8 @@ public class Enumerations
 		GENERAL,
 		MUSICA,
 		ERROR,
-		AFIRMATIVO
+		AFIRMATIVO,
+		NEGATIVO
 	}
 	
 	public enum EState

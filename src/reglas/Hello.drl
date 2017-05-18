@@ -91,7 +91,7 @@ rule "Trabajo"
 end
 
 
-rule "Gusto"
+rule "Afirmativo"
 
     when
         m : Message( utiles.KeyWords.afirmativo contains message  , myMessage : message )
@@ -100,5 +100,17 @@ rule "Gusto"
        TypeMessage  type =new TypeMessage();
        type.setTypeMessage("Afirmativo");
         m.setTypeMessage(type);
+        
+end
+
+rule "Negativo"
+
+    when
+        m : Message( utiles.KeyWords.negativo contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Negativo");
+       m.setTypeMessage(type);
         
 end

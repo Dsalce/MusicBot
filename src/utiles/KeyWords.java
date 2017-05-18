@@ -193,5 +193,24 @@ public class KeyWords {
         add("DESIRE");
         add("WANT");
 	}};
+public static ArrayList<String> negativo=new ArrayList<String>() {
+        
+        private static final long serialVersionUID = 1L;
+    {
+        add("NO");
+        add("DISLIKE");
+        add("HATE");
+        add("HATRED");
+        add("DETEST");
+        add("LACK");
+        add("INDIFFERENCE");
+        add("DESIRE");
+        add("DISGUST");
+        add("AVERSION");
+        add("REPULSION");
+        
+        
+        
+    }};
 
 }
