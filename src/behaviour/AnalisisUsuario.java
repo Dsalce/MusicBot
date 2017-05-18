@@ -46,7 +46,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	
 	//Mensaje para el usuario
 	String mensaje_cancion_anterior = "¿Quieres escuchar una cancion que ya te he recomendado?";
-	String mensaje_no_cancion_anterior = "No has escuchado nunca una cancion conmigo, ¿Quieres que te recomiende alguna?";
+	String mensaje_no_cancion_anterior = "¿Quieres que te recomiende alguna?";
 	String mensaje_ofrecer = "¿Quieres escuchar esta cancion? \n";
 	String recordatorio = "Acuardate de valorarla cuando acabe";
 	String seguir_ofrendiendo = "¿Quieres que te recomiende otra para tu estado de animo?";
@@ -85,14 +85,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		Lexico palabra = null;
 		
 		List<String> lista_tag = null;
-		
-		//Se analiza el sentimiento de la frase introducidda por el usuario
-		if(analizarSentimiento(chatId,StanfordNPL.sentiment(objetoSerializable.getTexto()))){
-			//Se realiza las preguntas para ofrecerle una cancion
-			analizarPreguntasAlUsuario();
-			return;
-		}
-		
+				
 		//Se recorre 
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
@@ -109,7 +102,21 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			}
 		}
 		
-		//Una vez los tag agrupados se analiza el numero de veces repetido el 
+		//Una vez los tag agrupados se analiza el numero de veces repetido el
+		//Se definen variables para recorrer el hashmap de tags
+		int cantidad_tema_elegido = 0;
+		int cont_tema = 0;
+		String tema = null;
+		//Se recorren los tags para saber el tema de conversacion
+		for(String tag : tag_agrupados.keySet()){
+			//if((!tag.equals(EtypeMessage.DESPEDIDA.toString())) && (!tag.equals(EtypeMessage.SALUDO.toString()))){
+				cont_tema = tag_agrupados.get(tag);
+				if(cont_tema>cantidad_tema_elegido){
+					tema = tag;
+					cantidad_tema_elegido = cont_tema;
+				}
+			//}
+		}
 		
 		//Se analiza si hay un saludo para saludarle lo primero
 		if(tag_agrupados.containsKey(EtypeMessage.SALUDO.toString())){
@@ -122,38 +129,31 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			}
 		}
 		
-		//Se definen variables para recorrer el hashmap de tags
-		int cantidad_tema_elegido = 0;
-		int cont_tema = 0;
-		String tema = null;
-		//Se recorren los tags para saber el tema de conversacion
-		for(String tag : tag_agrupados.keySet()){
-			if((!tag.equals(EtypeMessage.DESPEDIDA.toString())) && (!tag.equals(EtypeMessage.SALUDO.toString()))){
-				cont_tema = tag_agrupados.get(tag);
-				if(cont_tema>cantidad_tema_elegido){
-					tema = tag;
-					cantidad_tema_elegido = cont_tema;
-				}
-			}
-		}
-		
-		//Si se ha detectado algun tema de conversacion
-		if(tema!=null){
-			//Se habla al usuario respondiendo al tema escogido
-			hablarTemaUsuario(tema,chatId);
-		}
-		
-		
 		//Si hay una despedida para despedirse del usuario
 		if(tag_agrupados.containsKey(EtypeMessage.DESPEDIDA.toString())){
 			if(tag_agrupados.size() == 1){
 				//Saludamos al usuario ya que no ha escrito nada mas
-				despedidaUsuario(chatId);
+				despedidaUsuario();
 			}else{
 				//Saludamos al usuario unicamente si estamos saludandole
-				despedidaUsuario(chatId);
+				despedidaUsuario();
 			}
 		}
+
+		//Se analiza el sentimiento de la frase introducidda por el usuario
+		if(analizarSentimiento(chatId,StanfordNPL.sentiment(objetoSerializable.getTexto()))){
+			//Se realiza las preguntas para ofrecerle una cancion
+			analizarPreguntasAlUsuario();
+			return;
+		}else{
+			//Si se ha detectado algun tema de conversacion
+			if(!tema.equals(EtypeMessage.SALUDO.toString()) && !tema.equals(EtypeMessage.DESPEDIDA.toString())){
+				//Se habla al usuario respondiendo al tema escogido
+				hablarTemaUsuario(tema,chatId);
+			}
+		}
+		
+		
 	}
 	
 	private void analizarPreguntasAlUsuario() {
@@ -214,9 +214,14 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		switch (valoracion){
 			
 			case AFIRMATIVO:
-				enviarMensajeTelegra("Me alegro que te haya gustado, lo guardo para la proxima \n");
+				enviarMensajeTelegra("Me alegro que te haya gustado, lo guardo para la proxima \n ¿Quieres seguir hablando conmigo?");
 				musica_usuario.setCorrect(2);
-				//updateUserCase(valoracion_caso);
+				myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
+				usuario.setState("Conversacion0");
+				usuario.setSentimientoNegativo(0);
+				usuario.setSentimientoNeutral(0);
+				usuario.setSentimientoPositivo(0);
+				myManager.Users().Update(usuario.getChatId(), usuario);
 				break;
 				
 			case NEGATIVO:
@@ -277,8 +282,11 @@ public class AnalisisUsuario extends OneShotBehaviour{
 				break;
 				
 			case NEGATIVO:
-				ofrecerCharlar();
-				updateUserCase(ofrecer_charlar_caso);
+				usuario.setState("Conversacion0");
+				usuario.setSentimientoNegativo(0);
+				usuario.setSentimientoNeutral(0);
+				usuario.setSentimientoPositivo(0);
+				myManager.Users().Update(usuario.getChatId(), usuario);
 				break;
 				
 			case OTRO:
@@ -431,6 +439,8 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		if(usuario.getSentimientoNeutral()>10){
 			//No tiene guardado ninguna cancion anteriormente escuchada
 			enviarMensajeTelegra("No consigo detectar tu estado de animo, se mas concreto");
+			usuario.setSentimientoNeutral(0);
+			myManager.Users().Update(usuario.getChatId(), usuario);
 			return true;
 		}
 		
@@ -476,10 +486,14 @@ public class AnalisisUsuario extends OneShotBehaviour{
 					temas = myManager.TypeMessage().findByNivel(tag.ordinal(), 1);
 					random_tema = 0 + (int)(Math.random() * ((temas.size()-1 - 0) + 1));
 				}
-				//Se envia la respuesta al usuario
-				String mensaje = temas.get(random_tema);				
-				//Se envia la respuesta al usuario
-				enviarMensajeTelegra(mensaje);
+				if(temas.size()>0){
+					//Se envia la respuesta al usuario
+					String mensaje = temas.get(random_tema);				
+					//Se envia la respuesta al usuario
+					enviarMensajeTelegra(mensaje);
+				}else{
+					enviarMensajeTelegra("No te entiendo, se mas preciso");
+				}
 			}
 		}
 	}
@@ -513,17 +527,15 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	}
 	
 	//Gestion el envio de despedido al usuario
-	private void despedidaUsuario(String chatId){
-		//Se consulta en que estado estamos con el usuario
-		User usuario = myManager.Users().FindById(Integer.parseInt(chatId));
+	private void despedidaUsuario(){
 		
 		//Se consulta el mensaje de saludo para el usuario
 		TypeMessage despedida = myManager.TypeMessage().FindById(EtypeMessage.DESPEDIDA.ordinal());
 		List<Message> mensajesDespedida = despedida.getMessages();
 		int random = 0 + (int)(Math.random() * ((mensajesDespedida.size()-1 - 0) + 1));
 		enviarMensajeTelegra(mensajesDespedida.get(random).getMessage());
-		usuario.setState("Saludo");
-		myManager.Users().Update(usuario.getChatId(), usuario);
+		
+		myManager.Users().remove(usuario,usuario.getChatId());
 	}
 
 }

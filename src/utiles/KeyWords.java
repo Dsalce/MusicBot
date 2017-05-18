@@ -163,7 +163,7 @@ public class KeyWords {
 	    add("HUMID");
 	    add("FROSBITE");
 	    add("WETHER");
-	    add("RAIN");
+	    add("RAINY");
 	    add("RAINBOX");
 	    add("SEASON");
 	    add("SNOW");
@@ -198,6 +198,7 @@ public static ArrayList<String> negativo=new ArrayList<String>() {
         private static final long serialVersionUID = 1L;
     {
         add("NO");
+        add("NOT");
         add("DISLIKE");
         add("HATE");
         add("HATRED");

@@ -105,9 +105,6 @@ public class RepositoryBase<T> {
 		return (List<Music>)query.getResultList();
 	}
 	
-	
-	
-	
 	/**
 	 * Actualiza una entidad con identificador Id en base a updEntity 
 	 * @param Id
@@ -127,6 +124,23 @@ public class RepositoryBase<T> {
 		Manager.getTransaction().commit();
 		
 		return updEntity;
+	}
+	
+	public void remove(T updEntity, int chatId)
+	{
+		/*Manager.getTransaction().begin();
+		
+		T entity = Manager.find(Type, chatId);
+		
+		Manager.remove(entity);
+		
+	Manager.getTransaction().commit();*/
+		Manager.getTransaction().begin();
+		
+		Query query = Manager.createNativeQuery("DELETE FROM users ");
+		
+		Manager.getTransaction().commit();
+		
 	}
 	
 	/**
