@@ -115,11 +115,11 @@ public class RepositoryBase<T> {
 	{
 		Manager.getTransaction().begin();
 		
-		//T entity = Manager.find(Type, Id);
+		T entity = Manager.find(Type, Id);
 		
 		Manager.detach(updEntity);
 		
-		Manager.merge(updEntity);
+		Manager.merge(entity);
 		
 		Manager.getTransaction().commit();
 		
@@ -141,6 +141,26 @@ public class RepositoryBase<T> {
 		
 		Manager.getTransaction().commit();
 		
+	}
+	
+	public void Remove(T entity)
+	{
+		Manager.getTransaction().begin();
+		
+		Manager.remove(entity);
+		
+		Manager.getTransaction().commit();
+	}
+	
+	public void Remove(int Id)
+	{
+		Manager.getTransaction().begin();
+		
+		T entity = Manager.find(Type, Id);
+		
+		Manager.remove(entity);
+		
+		Manager.getTransaction().commit();
 	}
 	
 	/**
