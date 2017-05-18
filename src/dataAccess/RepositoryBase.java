@@ -81,16 +81,16 @@ public class RepositoryBase<T> {
 		return (List<String>)query.getResultList( );
 	}
 	
-	public List<Music> findByGusto(int gusto)
+	public List<Object[]> findByGusto(int gusto)
 	{
 		
 		Manager.getTransaction().begin();
 				
-		Query query = Manager.createNativeQuery(" SELECT `musics`.`IdMusic`, `musics`.`Name`,`musics`.`URL`,`musics`.`IdState` FROM `user_music`, `musics` WHERE `user_music`.`IdMusic` = `musics`.`IdMusic` AND `Correct` = " + gusto + " AND `Correct` = 1");
+		Query query = Manager.createNativeQuery(" SELECT `musics`.`IdMusic`,`musics`.`Name`,`musics`.`URL` FROM user_music,musics WHERE `IdState`= 1 AND `user_music`.`Correct`= 1 OR `user_music`.`Correct`= " + gusto);
 		
 		Manager.getTransaction().commit();
 		
-		return (List<Music>)query.getResultList();
+		return (List<Object[]>)query.getResultList();
 	}
 	
 	public List<Music> findByUserMusicChatid(int chatId, int idMusic)

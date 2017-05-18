@@ -32,6 +32,16 @@ public class User implements Serializable {
 	
 	private int sentimientoNeutral;
 	
+	private int caso;
+	
+	public int getCaso() {
+		return caso;
+	}
+
+	public void setCaso(int caso) {
+		this.caso = caso;
+	}
+
 	public int getSentimientoNeutral() {
 		return sentimientoNeutral;
 	}
@@ -106,7 +116,7 @@ public class User implements Serializable {
 
 
 
-	public User(int chatID2, String state, String password, int admin,int SentimientoNegativo, int SentimientoPositivo,String lastMessage, int sentimientoNeutral) {
+	public User(int chatID2, String state, String password, int admin,int SentimientoNegativo, int SentimientoPositivo,String lastMessage, int sentimientoNeutral, int caso) {
 		this.chatId = chatID2;
 		this.state = state;
 		this.password = password;
@@ -115,6 +125,7 @@ public class User implements Serializable {
 		this.SentimientoPositivo = SentimientoPositivo;
 		this.lastMessage = lastMessage;
 		this.sentimientoNeutral = sentimientoNeutral;
+		this.caso = caso;
 	}
 
 	public List<UserMusic> getUserMusics() {
