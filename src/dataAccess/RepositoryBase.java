@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import model.Message;
 import model.Music;
 import model.UserMusic;
@@ -103,6 +105,36 @@ public class RepositoryBase<T> {
 		Manager.getTransaction().commit();
 		
 		return (List<Music>)query.getResultList();
+	}
+	
+	public Music findMusicByName(String name)
+	{
+		Music _music = null;
+		
+		Manager.getTransaction().begin();
+		
+		Query query = Manager.createNativeQuery("select * from musics where Name = '" + name + "'", Music.class);
+		
+		_music =  (Music)query.getSingleResult();
+		
+		Manager.getTransaction().commit();
+		
+		return _music;
+	}
+	
+	public Music findMusicByURL(String URL)
+	{
+		Music _music = null;
+		
+		Manager.getTransaction().begin();
+		
+		Query query = Manager.createNativeQuery("select * from musics where URL = '" + URL + "'", Music.class);
+		
+		_music =  (Music)query.getSingleResult();
+		
+		Manager.getTransaction().commit();
+		
+		return _music;
 	}
 	
 	/**
