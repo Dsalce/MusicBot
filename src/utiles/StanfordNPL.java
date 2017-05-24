@@ -69,8 +69,8 @@ public class StanfordNPL {
 	    
        
        
-       Annotation annotation = pipeline_word.process(text);
-    
+       Annotation annotation = pipeline_word.process(text.toLowerCase());
+       
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
        	

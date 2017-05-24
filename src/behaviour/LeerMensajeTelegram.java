@@ -131,6 +131,7 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 	
 	//Se encarga de gestionar el analisis del mensaje por standfor
 	private int analizarPorStandfor(String mensaje, String chatId){
+		boolean admin = false;
 		int iterador = 0;
 		Lexico palabra = null;
 		String tag = "";
@@ -148,11 +149,15 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				//Se actualiza el tag de la palabra
 				listaPalabras.get(iterador).getTag().add(tag);
 			}
+			
+			if(tag.equals("Admin")){
+				admin = true;
+			}
 				
 		}
 
 		//En caso de ser un saludo
-		if(tag == "Admin"){
+		if(admin == true){
 			//Se pasa el mensaje al agente administrador para busque la respuesta al mensaje
 			return 2;
 		}else{
