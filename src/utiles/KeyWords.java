@@ -164,6 +164,7 @@ public class KeyWords {
 	    add("FROSBITE");
 	    add("WETHER");
 	    add("RAINY");
+		add("RAIN");
 	    add("RAINBOX");
 	    add("SEASON");
 	    add("SNOW");
@@ -176,6 +177,7 @@ public class KeyWords {
 	    add("BOILING");
 	    add("WINDY");
 	    add("COAT");
+		add("POLLUTE");
 	}};
 	
 	
