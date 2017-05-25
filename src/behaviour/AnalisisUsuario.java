@@ -360,7 +360,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			//En caso de que la lista sea especial se coge el objeto y se parsea
 			Object[] cancion_random = lista_especial.get(random_musica);
 			//Creamos el objeto cancion
-			Music cancion_gusto = new Music(Integer.parseInt(cancion_random[0].toString()),cancion_random[1].toString(),cancion_random[2].toString());
+			Music cancion_gusto = new Music(cancion_random[1].toString(),cancion_random[2].toString(),null);
 			recomendada = "esta es una de las que te gusto y te recomende \n";
 			introducirCancionRecomendadBBDD(cancion_gusto);
 			return true;

@@ -34,10 +34,10 @@ public class Music implements Serializable {
 	public Music() {
 	}
 
-	public Music(int idMusic, String name, String url) {
-		this.idMusic = idMusic;
+	public Music(String name, String url, State state) {
 		this.name = name;
 		this.url = url;
+		this.state = state;
 	}
 
 	public int getIdMusic() {

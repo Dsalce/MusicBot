@@ -30,6 +30,9 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	//Obejto serializable con la informacion pasada entre agentes
 	private SerializableObject objetoSerializable = null;
 	
+	//Se necesita la lista de palabras ordenadas para analizar el mensaje
+	List<Lexico> listaPalabras = null;
+	
 	//Variable globales debido a que se utilizan en varios metodos
 	private State estado;
 	private List<Music> canciones;
@@ -59,7 +62,7 @@ public class AnalisisAdmin extends OneShotBehaviour{
 		usuario = myManager.Users().FindById(Integer.parseInt(chatId));
 				
 		//En la posicion 1 esta la lista de palabras
-		List<Lexico> listaPalabras = objetoSerializable.getLista();
+		listaPalabras = objetoSerializable.getLista();
 		
 		//Se crea un hashmap para agrupar los tags
 		HashMap<String,Integer> tag_agrupados  = new HashMap<String,Integer>();
@@ -92,16 +95,14 @@ public class AnalisisAdmin extends OneShotBehaviour{
 		String tema = null;
 		//Se recorren los tags para saber el tema de conversacion
 		for(String tag : tag_agrupados.keySet()){
-			//if((!tag.equals(EtypeMessage.DESPEDIDA.toString())) && (!tag.equals(EtypeMessage.SALUDO.toString()))){
-				cont_tema = tag_agrupados.get(tag);
-				if(cont_tema>cantidad_tema_elegido){
-					tema = tag;
-					cantidad_tema_elegido = cont_tema;
-				}
-			//}
+			cont_tema = tag_agrupados.get(tag);
+			if(cont_tema>cantidad_tema_elegido){
+				tema = tag;
+				cantidad_tema_elegido = cont_tema;
+			}
 		}
 		
-		if(tag_agrupados.containsKey("Añadir")){
+		if(tag_agrupados.containsKey("Add")){
 			updateUserCase(1);
 		}else if(tag_agrupados.containsKey("Buscar")){
 			updateUserCase(2);
@@ -161,9 +162,19 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			myManager.Users().Update(usuario.getChatId(), usuario);
 		}else{
 			//Una vez preguntado al usuario se introduce la cancion que quiere
-			
+			String url = buscarUrl();
+			String nombre = buscarNombreEnFrase();
+			String estado = buscarEstadoEnFrase();
+			//Se crea el objeto estado
+			State state = new State(estado);
+			Music musica = new Music(nombre,url,state);
+			Music musicabbdd = myManager.Musics().findMusicByName(nombre);
+			if(musicabbdd != null){
+				enviarMensajeTelegra("La cancion ya esta introducida");
+			}else{
+				myManager.Musics().Add(musicabbdd);
+			}
 		}
-		
 	}
 
 	//Gestiona la busqueda de una cancion
@@ -174,8 +185,13 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			usuario.setLastMessage("¿Que cancion quieres buscar?");
 			myManager.Users().Update(usuario.getChatId(), usuario);
 		}else{
-			//Se le respondesi existe o no
-			
+			String nombre = buscarNombreEnFrase();
+			//Se le responde si existe o no
+			Music musica = myManager.Musics().findMusicByName(nombre);
+			if(musica!= null){
+				//Se ha borrado correctamente
+				enviarMensajeTelegra("La cancion ya la tengo alamacenada");
+			}
 		}
 	}
 	
@@ -184,18 +200,88 @@ public class AnalisisAdmin extends OneShotBehaviour{
 		//Por primera vez se le pregunta que cancion quiere eliminar
 		if(!usuario.getLastMessage().equals("¿Que cancion quieres eliminar digame su nombre?")){
 			enviarMensajeTelegra("¿Que cancion quieres eliminar digame su nombre?");
-			usuario.setLastMessage("¿Que cancion quieres eliminar digame su nombre?");
+			usuario.setLastMessage("¿Que cancion quieres eliminar? digame su nombre");
 			myManager.Users().Update(usuario.getChatId(), usuario);
 		}else{
 			//Se busca la cancion y se elimna
-			if(){
-				//Se ha borrado correctamente
-				enviarMensajeTelegra("Se ha borrado de forma exitosa");
-			}else{
-				//No se ha podido borrar
-				enviarMensajeTelegra("No se ha podido borrar correctamente, ¿quiere realizar otra operacion?");
-			}
-			
+			String nombre = buscarNombreEnFrase();
+			Music musica = myManager.Musics().findMusicByName(nombre);
+			myManager.Musics().Remove(musica.getIdMusic());
+			//Se ha borrado correctamente
+			enviarMensajeTelegra("Se ha borrado de forma exitosa");
 		}
+	}
+	
+	//Gestiona la busqueda de la cancion 
+	private String buscarNombreEnFrase(){
+		int iterador;
+		String nombre = "";
+		//Se coge el nombre de la cancion introducida por el usuario
+		for (iterador=0;iterador<listaPalabras.size();iterador++){
+			//Obtener el objeto de la posicion iterador
+			Lexico palabra = listaPalabras.get(iterador);
+			//Si la plabra es cancion
+			if((palabra.getWord().equals("song")) && (palabra.getWord().equals("add"))){
+				//Se juntan todas las palabras restantes y se almacenan como el nombre de la cancion
+				while(iterador<listaPalabras.size()){
+					//Obtener el objeto de la posicion iterador
+					Lexico palabra1 = listaPalabras.get(iterador);
+					//Si encontramos la palabra con, ya no pertenece al nombre
+					if((palabra1.getWord().equals("with")) && (palabra1.getWord().equals(","))){
+						break;
+					}
+					//Se concatenan las palabras restantes debido a que pertenecen al nombre
+					nombre = nombre + palabra1.getWord();
+					iterador++;
+				}
+				break;
+			}
+		}
+		if (nombre.equals("")){
+			for (iterador=0;iterador<listaPalabras.size();iterador++){
+				//Obtener el objeto de la posicion iterador
+				Lexico palabra = listaPalabras.get(iterador);
+				nombre = nombre + palabra.getWord();
+			}
+		}
+		return nombre;
+	}
+	
+	//Gestiona la busqueda del estado de la frase
+	private String buscarEstadoEnFrase(){
+		int iterador;
+		String estado = "";
+		//Se coge el nombre de la cancion introducida por el usuario
+		for (iterador=0;iterador<listaPalabras.size();iterador++){
+			//Obtener el objeto de la posicion iterador
+			Lexico palabra = listaPalabras.get(iterador);
+			//Si la plabra es cancion
+			if(palabra.getWord().equals("mood")){
+				//La siguiente palabra es el estado de animo
+				//Obtener el objeto de la posicion iterador
+				palabra = listaPalabras.get(iterador+1);
+				estado = palabra.getWord();
+				break;
+			}
+		}
+		if (estado.equals("")){
+			enviarMensajeTelegra("No has especificado el estado al que pertenece la cancion");
+		}
+		return estado;
+	}
+	
+	private String buscarUrl(){
+		String url = "";
+		int iterador;
+		//Se coge la url de la cancion introducida por el usuario
+		for (iterador=0;iterador<listaPalabras.size();iterador++){
+			//Obtener el objeto de la posicion iterador
+			Lexico palabra = listaPalabras.get(iterador);
+			if(palabra.getWord().contains("www")){
+				url = palabra.getWord();
+				return url;
+			}
+		}
+		return url;
 	}
 }

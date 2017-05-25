@@ -26,6 +26,10 @@ public class State implements Serializable {
 
 	public State() {
 	}
+	
+	public State(String state){
+		this.state = state;
+	}
 
 	public int getIdState() {
 		return this.idState;

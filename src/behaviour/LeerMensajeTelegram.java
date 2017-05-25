@@ -131,10 +131,12 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 	
 	//Se encarga de gestionar el analisis del mensaje por standfor
 	private int analizarPorStandfor(String mensaje, String chatId){
-		boolean admin = false;
 		int iterador = 0;
 		Lexico palabra = null;
 		String tag = "";
+		User usuario = null;
+		Manager myManager = new Manager();
+		usuario = myManager.Users().FindById(Integer.parseInt(chatId));
 		//Guarda y analiza la lisa de palabras analizadas
 		listaPalabras = StanfordNPL.parser(mensaje);
 		//Se recorre 
@@ -150,14 +152,16 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				listaPalabras.get(iterador).getTag().add(tag);
 			}
 			
-			if(tag.equals("Admin")){
-				admin = true;
+			if((palabra.getWord().equals("admininstrator")) && (palabra.getWord().equals("admininstrator"))){
+				//Se registra al cliente como un administrador
+				usuario.setAdmin(1);
+				myManager.Users().Update(Integer.parseInt(chatId),usuario);
 			}
 				
 		}
 
 		//En caso de ser un saludo
-		if(admin == true){
+		if(usuario.getAdmin() == 1){
 			//Se pasa el mensaje al agente administrador para busque la respuesta al mensaje
 			return 2;
 		}else{
