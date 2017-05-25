@@ -102,11 +102,11 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			}
 		}
 		
-		if(tag_agrupados.containsKey("Add")){
+		if(tag_agrupados.containsKey("ADD")){
 			updateUserCase(1);
-		}else if(tag_agrupados.containsKey("Buscar")){
+		}else if(tag_agrupados.containsKey("BUSCAR")){
 			updateUserCase(2);
-		}else if(tag_agrupados.containsKey("Eliminar")){
+		}else if(tag_agrupados.containsKey("ELIMINAR")){
 			updateUserCase(3);
 		}
 		
@@ -221,13 +221,13 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			//Obtener el objeto de la posicion iterador
 			Lexico palabra = listaPalabras.get(iterador);
 			//Si la plabra es cancion
-			if((palabra.getWord().equals("song")) && (palabra.getWord().equals("add"))){
+			if((palabra.getWord().equals("SONG")) && (palabra.getWord().equals("ADD"))){
 				//Se juntan todas las palabras restantes y se almacenan como el nombre de la cancion
 				while(iterador<listaPalabras.size()){
 					//Obtener el objeto de la posicion iterador
 					Lexico palabra1 = listaPalabras.get(iterador);
 					//Si encontramos la palabra con, ya no pertenece al nombre
-					if((palabra1.getWord().equals("with")) && (palabra1.getWord().equals(","))){
+					if((palabra1.getWord().equals("WITH")) && (palabra1.getWord().equals(","))){
 						break;
 					}
 					//Se concatenan las palabras restantes debido a que pertenecen al nombre
@@ -256,7 +256,7 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			//Obtener el objeto de la posicion iterador
 			Lexico palabra = listaPalabras.get(iterador);
 			//Si la plabra es cancion
-			if(palabra.getWord().equals("mood")){
+			if(palabra.getWord().equals("MOOD")){
 				//La siguiente palabra es el estado de animo
 				//Obtener el objeto de la posicion iterador
 				palabra = listaPalabras.get(iterador+1);

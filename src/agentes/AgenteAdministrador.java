@@ -1,4 +1,5 @@
 package agentes;
+import behaviour.LeerMensajesInternos;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -20,6 +21,7 @@ public class AgenteAdministrador extends Agent {
 		catch (FIPAException fe) {
 			fe.printStackTrace();
 		}
+		addBehaviour(new LeerMensajesInternos());
 	}
 
 	protected void takeDown() { // liberación de recursos del agente 
