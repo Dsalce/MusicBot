@@ -68,16 +68,19 @@ public class StanfordNPL {
 		}
 	    
        
-       
-       Annotation annotation = pipeline_word.process(text.toLowerCase());
+		String word="";
+       Annotation annotation = pipeline_word.process(text);
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {
        	
        	 for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
        	        // this is the text of the token
-       	        
-       	        String word=token.get(LemmaAnnotation.class).toUpperCase();
+       	        if(token.get(LemmaAnnotation.class).contains("www")){
+       	        	 word=token.get(TextAnnotation.class);
+       	        }else{
+       	        	 word=token.get(LemmaAnnotation.class).toUpperCase();
+       	        }
        	        // this is the POS tag of the token
        	        String pos = token.get(PartOfSpeechAnnotation.class);
        	        // this is the NER label of the token
@@ -106,7 +109,7 @@ public class StanfordNPL {
 			e.printStackTrace();
 		}
 	    
-       Annotation annotation = pipeline_sent.process(text);
+       Annotation annotation = pipeline_sent.process(text.toLowerCase());
        
        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
        for (CoreMap sentence : sentences) {

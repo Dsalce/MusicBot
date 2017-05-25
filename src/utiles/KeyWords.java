@@ -214,4 +214,45 @@ public static ArrayList<String> negativo=new ArrayList<String>() {
         
     }};
 
+
+
+
+
+
+public static ArrayList<String> add=new ArrayList<String>() {
+    
+    private static final long serialVersionUID = 1L;
+{
+    add("ADD");
+    add("APPEND");
+    add("AFFIX");
+    add("SUBJOIN");
+   }};
+
+  public static ArrayList<String> remove=new ArrayList<String>() {
+	    
+	    private static final long serialVersionUID = 1L;
+	{
+	    add("REMOVE");
+	    add("ELIMINATE");
+	    add("RID");
+	    add("DELETE");
+	    add("ERASE");
+	    add("ZAP");
+	   }};
+   
+	   public static ArrayList<String> buscar=new ArrayList<String>() {
+		    
+		    private static final long serialVersionUID = 1L;
+		{
+		    add("SEARCH");
+		    add("LOOK");
+		    add("SEEK");
+		    add("QUEST");
+		    add("INVESTIGATE");
+		    
+		   }};
+   
 }
+
+
