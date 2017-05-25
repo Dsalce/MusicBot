@@ -114,3 +114,41 @@ rule "Negativo"
        m.setTypeMessage(type);
         
 end
+
+rule "Add"
+
+    when
+        m : Message( utiles.KeyWords.add contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Add");
+       m.setTypeMessage(type);
+        
+end
+
+
+rule "Eliminar"
+
+    when
+        m : Message( utiles.KeyWords.remove contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Eliminar");
+       m.setTypeMessage(type);
+        
+end
+
+
+rule "Buscar"
+
+    when
+        m : Message( utiles.KeyWords.buscar contains message  , myMessage : message )
+    then
+       
+       TypeMessage  type =new TypeMessage();
+       type.setTypeMessage("Buscar");
+       m.setTypeMessage(type);
+        
+end
