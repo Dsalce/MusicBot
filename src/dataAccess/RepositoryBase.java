@@ -7,11 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import model.Message;
-import model.Music;
-import model.UserMusic;
+import model.*;
 
 public class RepositoryBase<T> {
 
@@ -71,9 +68,14 @@ public class RepositoryBase<T> {
 	 * @return
 	 */
 	
+	/***
+	 * 
+	 * @param TypeMessage
+	 * @param nivel
+	 * @return
+	 */
 	public List<String> findByNivel(int TypeMessage, int nivel)
 	{
-		
 		Manager.getTransaction().begin();
 				
 		Query query = Manager.createNativeQuery(" SELECT `Message` FROM  `messages` WHERE `IdTypeMessage` = '" + TypeMessage +"' AND `Nivel` = '" + nivel + "'");
@@ -83,6 +85,11 @@ public class RepositoryBase<T> {
 		return (List<String>)query.getResultList( );
 	}
 	
+	/***
+	 * 
+	 * @param gusto
+	 * @return
+	 */
 	public List<Object[]> findByGusto(int gusto)
 	{
 		
@@ -95,6 +102,12 @@ public class RepositoryBase<T> {
 		return (List<Object[]>)query.getResultList();
 	}
 	
+	/***
+	 * 
+	 * @param chatId
+	 * @param idMusic
+	 * @return
+	 */
 	public List<Music> findByUserMusicChatid(int chatId, int idMusic)
 	{
 		
@@ -107,6 +120,11 @@ public class RepositoryBase<T> {
 		return (List<Music>)query.getResultList();
 	}
 	
+	/***
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Music findMusicByName(String name)
 	{
 		Music _music = null;
@@ -122,6 +140,11 @@ public class RepositoryBase<T> {
 		return _music;
 	}
 	
+	/***
+	 * 
+	 * @param URL
+	 * @return
+	 */
 	public Music findMusicByURL(String URL)
 	{
 		Music _music = null;
@@ -155,18 +178,77 @@ public class RepositoryBase<T> {
 		
 		Manager.getTransaction().commit();
 		
-		return updEntity;
+		return entity;
 	}
 	
+	/***
+	 * No se modifican los atributos referenciales
+	 * @param updEntity
+	 * @return
+	 */
+	public Message Update(Message updEntity)
+	{
+		Manager.getTransaction().begin();
+		
+		Message entity = Manager.find(Message.class, updEntity.getIdMessage());
+		entity.setMessage(updEntity.getMessage());
+		entity.setNivel(updEntity.getNivel());
+		entity.setTypeMessage(updEntity.getTypeMessage());
+		
+		Manager.getTransaction().commit();
+		
+		return entity;
+	}
+	
+	/***
+	 * 
+	 * @param updEntity
+	 * @return
+	 */
+	public Music Update(Music updEntity)
+	{
+		Manager.getTransaction().begin();
+		
+		Music entity = Manager.find(Music.class, updEntity.getIdMusic());
+		entity.setName(updEntity.getName());
+		entity.setUrl(updEntity.getUrl());
+		entity.setState(updEntity.getState());
+		
+		Manager.getTransaction().commit();
+		
+		return entity;
+	}
+	
+	/***
+	 * 
+	 * @param updEntity
+	 * @return
+	 */
+	public User Update(User updEntity)
+	{
+		Manager.getTransaction().begin();
+		
+		User entity = Manager.find(User.class, updEntity.getChatId());
+		entity.setAdmin(updEntity.getAdmin());
+		entity.setCaso(updEntity.getCaso());
+		entity.setLastMessage(updEntity.getLastMessage());
+		entity.setSentimientoNegativo(updEntity.getSentimientoNegativo());
+		entity.setSentimientoPositivo(updEntity.getSentimientoPositivo());
+		entity.setSentimientoNeutral(updEntity.getSentimientoNeutral());
+		entity.setState(updEntity.getState());
+		
+		Manager.getTransaction().commit();
+		
+		return entity;
+	}
+	
+	/***
+	 * 
+	 * @param updEntity
+	 * @param chatId
+	 */
 	public void remove(T updEntity, int chatId)
 	{
-		/*Manager.getTransaction().begin();
-		
-		T entity = Manager.find(Type, chatId);
-		
-		Manager.remove(entity);
-		
-	Manager.getTransaction().commit();*/
 		Manager.getTransaction().begin();
 		
 		Query query = Manager.createNativeQuery("DELETE FROM users ");
@@ -175,6 +257,10 @@ public class RepositoryBase<T> {
 		
 	}
 	
+	/***
+	 * 
+	 * @param entity
+	 */
 	public void Remove(T entity)
 	{
 		Manager.getTransaction().begin();
@@ -184,6 +270,10 @@ public class RepositoryBase<T> {
 		Manager.getTransaction().commit();
 	}
 	
+	/***
+	 * 
+	 * @param Id
+	 */
 	public void Remove(int Id)
 	{
 		Manager.getTransaction().begin();
