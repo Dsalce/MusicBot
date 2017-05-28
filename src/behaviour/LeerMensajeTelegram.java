@@ -163,18 +163,24 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				//Se registra al cliente como un administrador
 				usuario.setAdmin(1);
 				myManager.Users().Update(Integer.parseInt(chatId),usuario);
+				myManager.Dispose();
 			}
 				
 		}
 
 		//En caso de ser un saludo
-		if(usuario.getAdmin() == 1){
-			//Se pasa el mensaje al agente administrador para busque la respuesta al mensaje
-			return 2;
+		if(usuario != null){
+			if(usuario.getAdmin() == 1){
+				//Se pasa el mensaje al agente administrador para busque la respuesta al mensaje
+				return 2;
+			}else{
+				//Si no encuentra ningun tag de aministrador entonces es un usuario estandar
+				return 1;
+			}
 		}else{
-			//Si no encuentra ningun tag de aministrador entonces es un usuario estandar
 			return 1;
 		}
+		
 	}
 	
 	//Se encarga de gestionar el analisis del mensaje mediante las reglas

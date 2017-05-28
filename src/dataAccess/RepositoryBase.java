@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import model.*;
@@ -102,6 +103,18 @@ public class RepositoryBase<T> {
 		return (List<Object[]>)query.getResultList();
 	}
 	
+	public List<Object[]> findByState(int gusto)
+	{
+		
+		Manager.getTransaction().begin();
+				
+		Query query = Manager.createNativeQuery("SELECT `IdMusic`, `Name`, `URL`, `IdState` FROM `musics` WHERE `IdState` = " + gusto);
+		
+		Manager.getTransaction().commit();
+		
+		return (List<Object[]>)query.getResultList();
+	}
+	
 	/***
 	 * 
 	 * @param chatId
@@ -128,7 +141,7 @@ public class RepositoryBase<T> {
 	public Music findMusicByName(String name)
 	{
 		Music _music = null;
-		
+		try{
 		Manager.getTransaction().begin();
 		
 		Query query = Manager.createNativeQuery("select * from musics where Name = '" + name + "'", Music.class);
@@ -136,6 +149,9 @@ public class RepositoryBase<T> {
 		_music =  (Music)query.getSingleResult();
 		
 		Manager.getTransaction().commit();
+		}catch(NoResultException e){
+			return null;
+		}
 		
 		return _music;
 	}
@@ -174,7 +190,7 @@ public class RepositoryBase<T> {
 		
 		Manager.detach(updEntity);
 		
-		Manager.merge(entity);
+		Manager.merge(updEntity);
 		
 		Manager.getTransaction().commit();
 		
@@ -237,6 +253,8 @@ public class RepositoryBase<T> {
 		entity.setSentimientoNeutral(updEntity.getSentimientoNeutral());
 		entity.setState(updEntity.getState());
 		
+		
+		
 		Manager.getTransaction().commit();
 		
 		return entity;
@@ -292,6 +310,8 @@ public class RepositoryBase<T> {
 	 */
 	public T Add(T entity)
 	{
+		while(Manager.getTransaction().isActive());
+			
 		Manager.getTransaction().begin();
 		
 		Manager.persist(entity);

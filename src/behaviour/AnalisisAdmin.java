@@ -156,11 +156,11 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	//Gestiona añadir una cancion 
 	private void anadirCancion(){	
 		//Por primera vez se le pregunta que cancion quiere añadir
-		if(!usuario.getLastMessage().equals("Digame que cancion desea añadir")){
+		/*if(!usuario.getLastMessage().equals("Digame que cancion desea añadir")){
 			enviarMensajeTelegra("Digame que cancion desea añadir");
 			usuario.setLastMessage("Digame que cancion desea añadir");
 			myManager.Users().Update(usuario.getChatId(), usuario);
-		}else{
+		}else{*/
 			//Una vez preguntado al usuario se introduce la cancion que quiere
 			String url = buscarUrl();
 			String nombre = buscarNombreEnFrase();
@@ -168,13 +168,14 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			//Se crea el objeto estado
 			State state = new State(estado);
 			Music musica = new Music(nombre,url,state);
-			Music musicabbdd = myManager.Musics().findMusicByName(nombre);
+			//Music musicabbdd = myManager.Musics().findMusicByName(nombre);
+			Music musicabbdd = null;
 			if(musicabbdd != null){
 				enviarMensajeTelegra("La cancion ya esta introducida");
 			}else{
-				myManager.Musics().Add(musicabbdd);
+				myManager.Musics().Add(musica);
 			}
-		}
+		//}
 	}
 
 	//Gestiona la busqueda de una cancion
@@ -221,13 +222,14 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			//Obtener el objeto de la posicion iterador
 			Lexico palabra = listaPalabras.get(iterador);
 			//Si la plabra es cancion
-			if((palabra.getWord().equals("SONG")) && (palabra.getWord().equals("ADD"))){
+			if((palabra.getWord().equals("SONG"))){
+				iterador++;
 				//Se juntan todas las palabras restantes y se almacenan como el nombre de la cancion
 				while(iterador<listaPalabras.size()){
 					//Obtener el objeto de la posicion iterador
 					Lexico palabra1 = listaPalabras.get(iterador);
 					//Si encontramos la palabra con, ya no pertenece al nombre
-					if((palabra1.getWord().equals("WITH")) && (palabra1.getWord().equals(","))){
+					if((palabra1.getWord().equals("WITH"))){
 						break;
 					}
 					//Se concatenan las palabras restantes debido a que pertenecen al nombre
@@ -259,7 +261,7 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			if(palabra.getWord().equals("MOOD")){
 				//La siguiente palabra es el estado de animo
 				//Obtener el objeto de la posicion iterador
-				palabra = listaPalabras.get(iterador+1);
+				palabra = listaPalabras.get(iterador-1);
 				estado = palabra.getWord();
 				break;
 			}

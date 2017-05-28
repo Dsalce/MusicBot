@@ -46,7 +46,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	
 	//Mensaje para el usuario
 	String mensaje_cancion_anterior = "¿Quieres escuchar una cancion que ya te he recomendado?";
-	String mensaje_no_cancion_anterior = "¿Quieres que te recomiende alguna?";
+	String mensaje_no_cancion_anterior = "¿Quieres que te recomiende alguna cancion?";
 	String mensaje_ofrecer = "¿Quieres escuchar esta cancion? \n";
 	String recordatorio = "Acuardate de valorarla cuando acabe";
 	String seguir_ofrendiendo = "¿Quieres que te recomiende otra para tu estado de animo?";
@@ -374,11 +374,11 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	private void cancionAzar(){
 		List<Object[]> lista_especial = null;
 		if(usuario.getSentimientoPositivo()>1){
-			//Se consulta las canciones escuchadas y ademas que le hayan gustado
-			lista_especial = myManager.Musics().findByGusto(2);
+			//Se consulta las canciones y ademas que le hayan gustado
+			lista_especial = myManager.Musics().findByState(2);
 		}else{
 			//Se consulta las canciones escuchadas y ademas que le hayan gustado
-			lista_especial = myManager.Musics().findByGusto(0);
+			lista_especial = myManager.Musics().findByState(0);
 		}
 		if(lista_especial.size()>0){
 			//Cogemos una cancion que le haya gustado al azar

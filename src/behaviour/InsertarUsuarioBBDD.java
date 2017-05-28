@@ -47,6 +47,7 @@ public class InsertarUsuarioBBDD extends OneShotBehaviour{
 			myAgent.addBehaviour(analisis);
 			
 		}
+		myManager.Dispose();
 	}
 	
 }
