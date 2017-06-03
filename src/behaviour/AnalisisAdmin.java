@@ -42,7 +42,7 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	private User usuario = null;
 	
 	//Consultar si ha escuchado una cancion anteriormente
-	UserMusic musica_usuario = null;
+	List<UserMusic> musica_usuario = null;
 	
 	//Casos para la afirmacion negacion
 	private final int PREGUNTAR = 0;
@@ -116,7 +116,7 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	
 	private void analizarPreguntasAlUsuario() {
 		//Se consulta el caso para el usuario 
-		musica_usuario = myManager.UserMusics().FindById(usuario.getChatId());
+		musica_usuario =  myManager.UserMusics().findByUserMusicChatid(usuario.getChatId());
 		int caso = usuario.getCaso();
 		switch(caso){
 			case PREGUNTAR:
@@ -156,11 +156,11 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	//Gestiona añadir una cancion 
 	private void anadirCancion(){	
 		//Por primera vez se le pregunta que cancion quiere añadir
-		/*if(!usuario.getLastMessage().equals("Digame que cancion desea añadir")){
+		if(!usuario.getLastMessage().equals("Digame que cancion desea añadir")){
 			enviarMensajeTelegra("Digame que cancion desea añadir");
 			usuario.setLastMessage("Digame que cancion desea añadir");
 			myManager.Users().Update(usuario.getChatId(), usuario);
-		}else{*/
+		}else{
 			//Una vez preguntado al usuario se introduce la cancion que quiere
 			String url = buscarUrl();
 			String nombre = buscarNombreEnFrase();
@@ -168,14 +168,16 @@ public class AnalisisAdmin extends OneShotBehaviour{
 			//Se crea el objeto estado
 			State state = new State(estado);
 			Music musica = new Music(nombre,url,state);
-			//Music musicabbdd = myManager.Musics().findMusicByName(nombre);
-			Music musicabbdd = null;
+			Music musicabbdd = myManager.Musics().findMusicByName(nombre);
 			if(musicabbdd != null){
 				enviarMensajeTelegra("La cancion ya esta introducida");
 			}else{
+				State estado_actualizado = myManager.States().FindById(8);
+				musica.setState(estado_actualizado);
 				myManager.Musics().Add(musica);
+				enviarMensajeTelegra("La cancion ha sido añadida correctamente");
 			}
-		//}
+		}
 	}
 
 	//Gestiona la busqueda de una cancion

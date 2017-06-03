@@ -103,16 +103,16 @@ public class RepositoryBase<T> {
 		return (List<Object[]>)query.getResultList();
 	}
 	
-	public List<Object[]> findByState(int gusto)
+	public List<Music> findByState(int gusto)
 	{
 		
 		Manager.getTransaction().begin();
 				
-		Query query = Manager.createNativeQuery("SELECT `IdMusic`, `Name`, `URL`, `IdState` FROM `musics` WHERE `IdState` = " + gusto);
+		Query query = Manager.createNativeQuery("SELECT `IdMusic`, `Name`, `URL`, `IdState` FROM `musics` WHERE `IdState` = " + gusto, Music.class);
 		
 		Manager.getTransaction().commit();
 		
-		return (List<Object[]>)query.getResultList();
+		return (List<Music>)query.getResultList();
 	}
 	
 	/***
@@ -121,16 +121,28 @@ public class RepositoryBase<T> {
 	 * @param idMusic
 	 * @return
 	 */
-	public List<Music> findByUserMusicChatid(int chatId, int idMusic)
+	public UserMusic findByUserMusicChatid(int chatId, int idMusic)
 	{
 		
 		Manager.getTransaction().begin();
 				
-		Query query = Manager.createNativeQuery("SELECT `Correct`, `chatId`, `IdMusic` FROM `user_music` WHERE `chatId` = " + chatId + " AND `IdMusic` = " + idMusic);
+		Query query = Manager.createNativeQuery("SELECT `Correct`, `chatId`, `IdMusic` FROM `user_music` WHERE `chatId` = " + chatId + " AND `IdMusic` = " + idMusic, Music.class);
 		
 		Manager.getTransaction().commit();
 		
-		return (List<Music>)query.getResultList();
+		return (UserMusic) query.getSingleResult();
+	}
+	
+	public List<UserMusic> findByUserMusicChatid(int chatId)
+	{
+		
+		Manager.getTransaction().begin();
+				
+		Query query = Manager.createNativeQuery("SELECT `Correct`, `chatId`, `IdMusic` FROM `user_music` WHERE `chatId` = " + chatId, UserMusic.class);
+		
+		Manager.getTransaction().commit();
+		
+		return (List<UserMusic>)query.getResultList();
 	}
 	
 	/***
@@ -245,7 +257,7 @@ public class RepositoryBase<T> {
 		Manager.getTransaction().begin();
 		
 		User entity = Manager.find(User.class, updEntity.getChatId());
-		entity.setAdmin(updEntity.getAdmin());
+		entity.setAdmin((byte) updEntity.getAdmin());
 		entity.setCaso(updEntity.getCaso());
 		entity.setLastMessage(updEntity.getLastMessage());
 		entity.setSentimientoNegativo(updEntity.getSentimientoNegativo());

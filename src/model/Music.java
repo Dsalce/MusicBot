@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -23,22 +22,18 @@ public class Music implements Serializable {
 	private String url;
 
 	//bi-directional many-to-one association to State
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="IdState")
 	private State state;
 
-	//bi-directional many-to-one association to UserMusic
-	@OneToMany(mappedBy="music")
-	private List<UserMusic> userMusics;
-
 	public Music() {
 	}
-
+	
 	public Music(String name, String url, State state) {
 		this.name = name;
 		this.url = url;
 		this.state = state;
-	}
+	}	
 
 	public int getIdMusic() {
 		return this.idMusic;
@@ -70,28 +65,6 @@ public class Music implements Serializable {
 
 	public void setState(State state) {
 		this.state = state;
-	}
-
-	public List<UserMusic> getUserMusics() {
-		return this.userMusics;
-	}
-
-	public void setUserMusics(List<UserMusic> userMusics) {
-		this.userMusics = userMusics;
-	}
-
-	public UserMusic addUserMusic(UserMusic userMusic) {
-		getUserMusics().add(userMusic);
-		userMusic.setMusic(this);
-
-		return userMusic;
-	}
-
-	public UserMusic removeUserMusic(UserMusic userMusic) {
-		getUserMusics().remove(userMusic);
-		userMusic.setMusic(null);
-
-		return userMusic;
 	}
 
 }

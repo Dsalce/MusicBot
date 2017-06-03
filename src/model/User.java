@@ -18,114 +18,111 @@ public class User implements Serializable {
 	@Id
 	private int chatId;
 
-	private String state;
+	private byte admin;
+
+	private int caso;
+
+	private String lastMessage;
 
 	private String password;
-	
-	private String lastMessage;
-	
-	private int admin;
-	
-	private int SentimientoNegativo;
-	
-	private int SentimientoPositivo;
-	
-	private int sentimientoNeutral;
-	
-	private int caso;
-	
-	public int getCaso() {
-		return caso;
-	}
 
-	public void setCaso(int caso) {
+	private int sentimientoNegativo;
+
+	private int sentimientoNeutral;
+
+	private int sentimientoPositivo;
+
+	private String state;
+
+	//bi-directional many-to-one association to UserMusic
+	@OneToMany(mappedBy="user")
+	private List<UserMusic> userMusics;
+
+	public User() {
+	}
+	
+	public User(int chatID2, String state, String password, byte admin,int SentimientoNegativo, int SentimientoPositivo,String lastMessage, int sentimientoNeutral, int caso) {
+		this.chatId = chatID2;
+		this.state = state;
+		this.password = password;
+		this.admin = admin;
+		this.sentimientoNegativo = SentimientoNegativo;
+		this.sentimientoPositivo = SentimientoPositivo;
+		this.lastMessage = lastMessage;
+		this.sentimientoNeutral = sentimientoNeutral;
 		this.caso = caso;
 	}
 
-	public int getSentimientoNeutral() {
-		return sentimientoNeutral;
-	}
-
-	public void setSentimientoNeutral(int sentimientoNeutral) {
-		this.sentimientoNeutral = sentimientoNeutral;
-	}
-
-	public String getLastMessage() {
-		return lastMessage;
-	}
-
-	public void setLastMessage(String lastMessage) {
-		this.lastMessage = lastMessage;
-	}
-
-	public User(){
-		
-	}
-
-	public int getSentimientoNegativo() {
-		return SentimientoNegativo;
-	}
-
-	public void setSentimientoNegativo(int sentimientoNegativo) {
-		SentimientoNegativo = sentimientoNegativo;
-	}
-
-	public int getSentimientoPositivo() {
-		return SentimientoPositivo;
-	}
-
-	public void setSentimientoPositivo(int sentimientoPositivo) {
-		SentimientoPositivo = sentimientoPositivo;
-	}
-	
 	public int getChatId() {
-		return chatId;
+		return this.chatId;
 	}
 
 	public void setChatId(int chatId) {
 		this.chatId = chatId;
 	}
 
-	public String getState() {
-		return state;
+	public byte getAdmin() {
+		return this.admin;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setAdmin(byte admin) {
+		this.admin = admin;
+	}
+
+	public int getCaso() {
+		return this.caso;
+	}
+
+	public void setCaso(int caso) {
+		this.caso = caso;
+	}
+
+	public String getLastMessage() {
+		return this.lastMessage;
+	}
+
+	public void setLastMessage(String lastMessage) {
+		this.lastMessage = lastMessage;
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public int getAdmin() {
-		return admin;
+	public int getSentimientoNegativo() {
+		return this.sentimientoNegativo;
 	}
 
-	public void setAdmin(int admin) {
-		this.admin = admin;
+	public void setSentimientoNegativo(int sentimientoNegativo) {
+		this.sentimientoNegativo = sentimientoNegativo;
 	}
 
-	//bi-directional many-to-one association to UserMusic
-	@OneToMany(mappedBy="user")
-	private List<UserMusic> userMusics;
+	public int getSentimientoNeutral() {
+		return this.sentimientoNeutral;
+	}
 
-
-
-	public User(int chatID2, String state, String password, int admin,int SentimientoNegativo, int SentimientoPositivo,String lastMessage, int sentimientoNeutral, int caso) {
-		this.chatId = chatID2;
-		this.state = state;
-		this.password = password;
-		this.admin = admin;
-		this.SentimientoNegativo = SentimientoNegativo;
-		this.SentimientoPositivo = SentimientoPositivo;
-		this.lastMessage = lastMessage;
+	public void setSentimientoNeutral(int sentimientoNeutral) {
 		this.sentimientoNeutral = sentimientoNeutral;
-		this.caso = caso;
+	}
+
+	public int getSentimientoPositivo() {
+		return this.sentimientoPositivo;
+	}
+
+	public void setSentimientoPositivo(int sentimientoPositivo) {
+		this.sentimientoPositivo = sentimientoPositivo;
+	}
+
+	public String getState() {
+		return this.state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public List<UserMusic> getUserMusics() {

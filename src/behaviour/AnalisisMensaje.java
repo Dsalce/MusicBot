@@ -59,7 +59,7 @@ public class AnalisisMensaje extends OneShotBehaviour{
 		for (iterador=0;iterador<listaPalabras.size();iterador++){
 			//Obtener el objeto de la posicion iterador
 			palabra = listaPalabras.get(iterador);
-			tag = palabra.getTag();
+			tag = palabra.getTag().get(0);
 			if(tag == ""){
 				//Se analiza la palabra mediante drools para intentar identificar su tag
 				tag = analizarPorReglas(palabra);

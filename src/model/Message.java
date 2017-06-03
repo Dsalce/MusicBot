@@ -19,8 +19,7 @@ public class Message implements Serializable {
 
 	@Lob
 	private String message;
-	
-	
+
 	private int nivel;
 
 	//bi-directional many-to-one association to TypeMessage
@@ -47,20 +46,20 @@ public class Message implements Serializable {
 		this.message = message;
 	}
 
+	public int getNivel() {
+		return this.nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
 	public TypeMessage getTypeMessage() {
 		return this.typeMessage;
 	}
 
 	public void setTypeMessage(TypeMessage typeMessage) {
 		this.typeMessage = typeMessage;
-	}
-	
-	public int getNivel() {
-		return nivel;
-	}
-
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
 	}
 
 }

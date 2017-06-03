@@ -156,12 +156,12 @@ public class LeerMensajeTelegram extends CyclicBehaviour{
 				//Introducimos al usuario en la base de datos
 				if(usuario == null){
 					//Se introduce al usuario en la bbdd
-					usuario = new User(Integer.parseInt(chatId),"Saludo","",0,0,0,"",0,0);
-					usuario.setAdmin(1);
+					usuario = new User(Integer.parseInt(chatId),"Saludo","",(byte) 0,0,0,"",0,0);
+					usuario.setAdmin((byte) 1);
 					myManager.Users().Add(usuario);
 				}
 				//Se registra al cliente como un administrador
-				usuario.setAdmin(1);
+				usuario.setAdmin((byte) 1);
 				myManager.Users().Update(Integer.parseInt(chatId),usuario);
 				myManager.Dispose();
 			}

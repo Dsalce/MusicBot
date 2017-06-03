@@ -61,8 +61,8 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	//Se consulta en que estado estamos con el usuario
 	private User usuario = null;
 	
-	//Consultar si ha escuchado una cancion anteriormente
-	UserMusic musica_usuario = null;
+	//Consultar si ha escuchado una cancion anteriormente	
+	List<UserMusic> lista_musica_usuario = null;
 	
 	@Override
 	public void action() {
@@ -158,7 +158,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	
 	private void analizarPreguntasAlUsuario() {
 		//Se consulta el caso para el usuario 
-		musica_usuario = myManager.UserMusics().FindById(usuario.getChatId());
+		lista_musica_usuario = myManager.UserMusics().findByUserMusicChatid(usuario.getChatId());
 		int caso = usuario.getCaso();
 		switch(caso){
 			case mensaje_ofrecer_caso:
@@ -215,8 +215,8 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			
 			case AFIRMATIVO:
 				enviarMensajeTelegra("Me alegro que te haya gustado, lo guardo para la proxima \n ¿Quieres seguir hablando conmigo?");
-				musica_usuario.setCorrect(2);
-				myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
+				//musica_usuario.setCorrect(2);
+				//myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
 				usuario.setState("Conversacion0");
 				usuario.setSentimientoNegativo(0);
 				usuario.setSentimientoNeutral(0);
@@ -225,8 +225,8 @@ public class AnalisisUsuario extends OneShotBehaviour{
 				break;
 				
 			case NEGATIVO:
-				musica_usuario.setCorrect(0);
-				myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
+				//musica_usuario.setCorrect(0);
+				//myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
 				//Como no le ha gustado volvemos a preguntarle
 				//Ofrecer si quiere una cancion escuchada
 				enviarMensajeTelegra("Lo siento, " );
@@ -323,7 +323,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	}
 
 	private void ofrecerCancion() {
-		if(musica_usuario!=null){
+		if(lista_musica_usuario!=null){
 			ofrecerCancionEscuchada();
 			updateUserCase(mensaje_ofrecer_cancion_escuchada_caso);
 		}else{
@@ -336,13 +336,13 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	private void ofrecerCancionEscuchada(){
 		//Ofrecer si quiere una cancio escuchada
 		enviarMensajeTelegra(mensaje_cancion_anterior);
-		usuario.setCaso(mensaje_ofrecer_cancion_escuchada_caso);
+		updateUserCase(mensaje_ofrecer_cancion_escuchada_caso);
 	}
 	
 	private void ofrecerCancionAzar(){
 		//No tiene guardado ninguna cancion anteriormente escuchada
 		enviarMensajeTelegra(mensaje_no_cancion_anterior);
-		usuario.setCaso(mensaje_ofrecer_cancion_azar_caso);
+		updateUserCase(mensaje_ofrecer_cancion_azar_caso);
 	}
 	
 	private boolean cancionEscuchada(){
@@ -372,7 +372,7 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	}
 	
 	private void cancionAzar(){
-		List<Object[]> lista_especial = null;
+		List<Music> lista_especial = null;
 		if(usuario.getSentimientoPositivo()>1){
 			//Se consulta las canciones y ademas que le hayan gustado
 			lista_especial = myManager.Musics().findByState(2);
@@ -384,12 +384,12 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			//Cogemos una cancion que le haya gustado al azar
 			int random_musica = 0 + (int)(Math.random() * ((lista_especial.size()-1 - 0) + 1));
 			//No ha escuchado una cancion anteriormente, se consultan las canciones positivas
-			State estados_musica = myManager.States().FindById(EState.TRISTE.ordinal()); 	
+			State estados_musica = myManager.States().FindById(EState.ALEGRE.ordinal()); 	
 			List<Music> lista_musica = estados_musica.getMusics();
 			//Crear objeto musica
 			Music cancion_gusto = lista_musica.get(random_musica);
 			//Cancion aleatoria de la bbdd
-			recomendada = " pienso que esta es la que mas se ajusta a tu estado de animo \n";
+			recomendada = " pienso que esta es la que mas se ajusta a tu estado de animo \n" + EState.ALEGRE.toString();
 			introducirCancionRecomendadBBDD(cancion_gusto);
 		}
 	}
@@ -399,16 +399,15 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		enviarMensajeTelegra(mensaje_ofrecer + recomendada + cancion_gusto.getName() + ": " + cancion_gusto.getUrl() );
 		mensaje_ofrecer = mensaje_ofrecer + "-" + cancion_gusto.getIdMusic();
 		//Se introduce como neutral la opinion del usuario
-		List<Music> musica = myManager.UserMusics().findByUserMusicChatid(usuario.getChatId(), cancion_gusto.getIdMusic());
-		if(musica.size()!=0){
-			//Tiene la cancion guardada por lo que lo actualizamos
-			musica_usuario.setCorrect(1);
-			myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);
-		}else{
+		//UserMusic musica = myManager.UserMusics().findByUserMusicChatid(usuario.getChatId(), cancion_gusto.getIdMusic());
+		//if(musica != null){
+			/*musica.setCorrect(1);
+			myManager.UserMusics().Update(usuario.getChatId(), musica_usuario);*/
+		//}else{
 			//No tiene almacenada la cancion, se inserta
-			musica_usuario = new UserMusic(1,cancion_gusto,usuario);
-			myManager.UserMusics().Add(musica_usuario);			
-		}
+			/*musica_usuario = new UserMusic(1,cancion_gusto,usuario);
+			myManager.UserMusics().Add(musica_usuario);	*/		
+		//}
 	}
 	private boolean analizarSentimiento(String chatId,String sentiment) {
 		
@@ -514,6 +513,12 @@ public class AnalisisUsuario extends OneShotBehaviour{
 			enviarMensajeTelegra(mensajesSaludos.get(random_saludo).getMessage());
 			usuario.setState("Conversacion0");
 			myManager.Users().Update(usuario.getChatId(), usuario);
+			//Se consulta el mensaje de general para el usuario
+			TypeMessage pregunta_general = myManager.TypeMessage().FindById(EtypeMessage.GENERAL.ordinal());
+			List<Message> mensajesGeneral = pregunta_general.getMessages();
+			int random_general = 0 + (int)(Math.random() * ((mensajesGeneral.size()-1 - 0) + 1));
+			//Se envia la respuesta al usuario
+			enviarMensajeTelegra( mensajesGeneral.get(random_general).getMessage());
 		}else{
 			if(saludar){
 				//Se consulta el mensaje de general para el usuario
@@ -535,7 +540,11 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		int random = 0 + (int)(Math.random() * ((mensajesDespedida.size()-1 - 0) + 1));
 		enviarMensajeTelegra(mensajesDespedida.get(random).getMessage());
 		
-		myManager.Users().remove(usuario,usuario.getChatId());
+		//myManager.Users().Remove(usuario);
+		
+		usuario.setCaso(0);
+		usuario.setLastMessage("");
+		myManager.Users().Update(usuario);
 	}
 
 }

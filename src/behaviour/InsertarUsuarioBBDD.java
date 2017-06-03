@@ -29,7 +29,7 @@ public class InsertarUsuarioBBDD extends OneShotBehaviour{
 		//Si existe el usuario no lo introducimos en la bbdd
 		if(usuario_bbdd == null){
 			//Se introduce al usuario en la bbdd
-			User usuario = new User(chatID,"Saludo","",0,0,0,"",0,0);
+			User usuario = new User(chatID,"Saludo","",(byte) 0,0,0,"",0,0);
 			myManager.Users().Add(usuario);
 		}
 		
