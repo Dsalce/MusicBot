@@ -3,8 +3,6 @@ package behaviour;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.util.leap.Serializable;
-import model.Message;
 import model.SerializableObject;
 import model.User;
 import utiles.Lexico;
@@ -12,7 +10,6 @@ import utiles.LlamarReglas;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;

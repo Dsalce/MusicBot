@@ -7,6 +7,8 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class AgenteAdministrador extends Agent {
+	private static final long serialVersionUID = 1L;
+
 	protected void setup() {
 		// Register the book-selling service in the yellow pages
 		DFAgentDescription dfd = new DFAgentDescription();

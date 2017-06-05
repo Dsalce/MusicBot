@@ -5,17 +5,13 @@ import java.util.List;
 
 import bussines.Manager;
 import jade.core.behaviours.OneShotBehaviour;
-import model.Message;
 import model.Music;
 import model.SerializableObject;
 import model.State;
-import model.TypeMessage;
 import model.User;
 import model.UserMusic;
-import model.Enumerations.EtypeMessage;
 import utiles.EnviarMensajeTelegram;
 import utiles.Lexico;
-import utiles.StanfordNPL;
 
 public class AnalisisAdmin extends OneShotBehaviour{
 
@@ -33,11 +29,6 @@ public class AnalisisAdmin extends OneShotBehaviour{
 	//Se necesita la lista de palabras ordenadas para analizar el mensaje
 	List<Lexico> listaPalabras = null;
 	
-	//Variable globales debido a que se utilizan en varios metodos
-	private State estado;
-	private List<Music> canciones;
-	private int random_cancion;
-	private Music cancion;
 	//Se consulta en que estado estamos con el usuario
 	private User usuario = null;
 	

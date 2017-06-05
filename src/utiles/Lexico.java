@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lexico implements Serializable {
-    private String word;
+	
+	private static final long serialVersionUID = 1L;
+	private String word;
     private String tipo;
     private List<String> tag = new ArrayList<String>();
     

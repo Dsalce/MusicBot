@@ -53,11 +53,6 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	String ofrecer_charlar = "¿Quieres seguir hablando conmigo?";
 	String recomendada = "";
 	
-	//Variable globales debido a que se utilizan en varios metodos
-	private State estado;
-	private List<Music> canciones;
-	private int random_cancion;
-	private Music cancion;
 	//Se consulta en que estado estamos con el usuario
 	private User usuario = null;
 	
@@ -264,14 +259,9 @@ public class AnalisisUsuario extends OneShotBehaviour{
 	}
 	
 	private void analizarRespuestaOfrecimientoAzar() {
-		List<Music> lista_musica = null;
-		List<Object[]> lista_especial = null;
-		Music cancion_gusto =null;
 		
 		int valoracion = frasePositivaOnegativa();
-		
-		int random_musica;
-		
+				
 		//Analizamos la respuesta del usuario
 		switch (valoracion){
 			
@@ -506,7 +496,6 @@ public class AnalisisUsuario extends OneShotBehaviour{
 		TypeMessage saludos = myManager.TypeMessage().FindById(EtypeMessage.SALUDO.ordinal());
 		List<Message> mensajesSaludos = saludos.getMessages();
 		int random_saludo = 0 + (int)(Math.random() * ((mensajesSaludos.size()-1 - 0) + 1));			
-		String chat = Integer.toString(usuario.getChatId());
 		
 		//Se envia la respuesta al usuario
 		if(usuario.getState().equals("Saludo")){

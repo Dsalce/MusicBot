@@ -1,17 +1,14 @@
 package control;
-import model.TypeMessage;
 
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import bussines.Manager;
 import jade.core.Runtime;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.ProfileException;
 import jade.util.leap.Properties;
-import utiles.LlamarReglas;
 import utiles.StanfordNPL;
 import jade.util.ExtendedProperties;
 import jade.util.Logger;
@@ -25,9 +22,7 @@ public class Main {
 	public static void main(String args[]) {
 		//Se cargan los modulo de stanfor
 		StanfordNPL.loadModules();
-		
-		Manager myManager = new Manager();
-				
+						
 		ApiContextInitializer.init();
         		
 		telegram = new Telegram();

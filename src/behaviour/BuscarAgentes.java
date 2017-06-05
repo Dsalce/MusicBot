@@ -15,6 +15,8 @@ import utiles.Lexico;
 
 public class BuscarAgentes extends TickerBehaviour{
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final String tipoServicio = "AgenteTelegram";
 	
 	private List<AID> listaAgentes = new ArrayList<AID>();

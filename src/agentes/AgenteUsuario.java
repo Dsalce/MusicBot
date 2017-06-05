@@ -1,7 +1,6 @@
 package agentes;
 
 import behaviour.LeerMensajesInternos;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;

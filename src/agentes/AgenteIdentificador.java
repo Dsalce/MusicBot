@@ -2,21 +2,16 @@ package agentes;
 
 import behaviour.BuscarAgentes;
 import behaviour.LeerMensajeTelegram;
-import behaviour.LeerMensajesInternos;
 import behaviour.Saludo;
 
 import jade.core.Agent;
-
-import java.util.Iterator;
-
-import jade.core.AID;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class AgenteIdentificador extends Agent {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	protected void setup() {
 		
 		//El agente saluda para decir que ya esta activo

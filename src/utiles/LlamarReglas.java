@@ -5,7 +5,6 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import model.Message;
-import model.TypeMessage;
 
 public class LlamarReglas {
 

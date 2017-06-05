@@ -5,19 +5,13 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import model.SerializableObject;
-import utiles.LlamarReglas;
-import control.Telegram;
-import control.Main;
 import behaviour.InsertarUsuarioBBDD;
 
 
 public class LeerMensajesInternos extends CyclicBehaviour{
 
 	private static final long serialVersionUID = 1L;
-	
-	private Telegram tele = Main.telegram;
-	
-	private LlamarReglas reglas = new LlamarReglas();
+		
 
 	public void action() {
 		//Se crea un template para poder consultar el tipo de mensaje que es y 
